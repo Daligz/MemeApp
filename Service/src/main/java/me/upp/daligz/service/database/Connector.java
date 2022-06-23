@@ -28,7 +28,6 @@ public class Connector {
                 .ifNotExists()
                 .column(TablePosts.ID.getValue(), "INT AUTO_INCREMENT")
                 .column(TablePosts.URL.getValue(), "VARCHAR(120) NOT NULL")
-                .column(TablePosts.RATE.getValue(), "INT NOT NULL")
                 .column(TablePosts.CATEGORY.getValue(), "VARCHAR(120) NOT NULL")
                 .primaryKey(TablePosts.ID.getValue())
                 .build();
