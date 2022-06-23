@@ -7,8 +7,8 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum TableFavorites {
     TABLE_NAME("favorites"),
-    ID("favoritesId"),
+    ID("favoriteId"),
     USER_ID("userId"),
-    POST_ID("postsId");
+    POST_ID("postId");
     private String value;
 }

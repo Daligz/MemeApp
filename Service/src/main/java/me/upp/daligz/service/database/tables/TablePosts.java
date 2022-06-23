@@ -7,7 +7,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum TablePosts {
     TABLE_NAME("posts"),
-    ID("postsId"),
+    ID("postId"),
     URL("url"),
     CATEGORY("category");
     private String value;

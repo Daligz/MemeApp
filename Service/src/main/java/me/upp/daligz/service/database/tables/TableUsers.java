@@ -7,7 +7,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum TableUsers {
     TABLE_NAME("users"),
-    ID("usersId"),
+    ID("userId"),
     MAC("mac");
     private String value;
 }
