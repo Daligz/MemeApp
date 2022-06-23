@@ -1,6 +1,7 @@
 package me.upp.daligz.service.database;
 
 import me.upp.daligz.service.database.tables.TablePosts;
+import me.upp.daligz.service.database.tables.TableUsers;
 import net.royalmind.minecraft.plugin.minigamecluster.mysqlapi.MySQL;
 import net.royalmind.minecraft.plugin.minigamecluster.mysqlapi.queries.CreateTableQuery;
 import net.royalmind.minecraft.plugin.minigamecluster.mysqlapi.queries.Query;
@@ -24,14 +25,28 @@ public class Connector {
     }
 
     private void createTables() {
-        final String postsTableQuery = new CreateTableQuery(TablePosts.TABLE_NAME.getValue())
-                .ifNotExists()
-                .column(TablePosts.ID.getValue(), "INT AUTO_INCREMENT")
-                .column(TablePosts.URL.getValue(), "VARCHAR(120) NOT NULL")
-                .column(TablePosts.CATEGORY.getValue(), "VARCHAR(120) NOT NULL")
-                .primaryKey(TablePosts.ID.getValue())
-                .build();
-        new Query(this.mySQL, postsTableQuery).executeUpdateAsync();
+        this.executeTableQuery(
+                new CreateTableQuery(TablePosts.TABLE_NAME.getValue())
+                        .ifNotExists()
+                        .column(TablePosts.ID.getValue(), "INT AUTO_INCREMENT")
+                        .column(TablePosts.URL.getValue(), "VARCHAR(120) NOT NULL")
+                        .column(TablePosts.CATEGORY.getValue(), "VARCHAR(120) NOT NULL")
+                        .primaryKey(TablePosts.ID.getValue())
+                        .build()
+        );
+
+        this.executeTableQuery(
+                new CreateTableQuery(TableUsers.TABLE_NAME.getValue())
+                        .ifNotExists()
+                        .column(TableUsers.ID.getValue(), "INT AUTO_INCREMENT")
+                        .column(TableUsers.MAC.getValue(), "VARCHAR(20) NOT NULL")
+                        .primaryKey(TableUsers.ID.getValue())
+                        .build()
+        );
+    }
+
+    private void executeTableQuery(final String query) {
+        new Query(this.mySQL, query).executeUpdateAsync();
     }
 
     public ResultSet getPosts(final String category) {
