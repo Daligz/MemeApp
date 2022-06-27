@@ -12,14 +12,19 @@ import java.sql.ResultSet;
 @AllArgsConstructor
 public class Get implements DataMethod<JSONArray> {
 
-    private SelectQuery selectQuery;
+    private final SelectQuery selectQuery;
+    private int limit = -1;
+    private final MySQL mySQL;
 
-    private MySQL mySQL;
+    public Get(final SelectQuery selectQuery, final MySQL mySQL) {
+        this.selectQuery = selectQuery;
+        this.mySQL = mySQL;
+    }
 
     @Override
     public JSONArray execute() throws Exception {
         final ResultSet resultSet = new Query(this.mySQL, this.selectQuery.build()).executeQuery();
         if (resultSet == null) return null;
-        return JsonUtils.toJSON(resultSet);
+        return JsonUtils.toJSON(resultSet, this.limit);
     }
 }

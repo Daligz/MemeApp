@@ -2,6 +2,7 @@ package me.upp.daligz.service.request;
 
 import lombok.Data;
 import me.upp.daligz.service.database.Connector;
+import me.upp.daligz.service.database.methods.Get;
 import me.upp.daligz.service.utils.JsonUtils;
 
 import java.sql.ResultSet;
