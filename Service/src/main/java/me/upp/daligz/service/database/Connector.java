@@ -1,5 +1,6 @@
 package me.upp.daligz.service.database;
 
+import lombok.Getter;
 import me.upp.daligz.service.database.tables.TableFavorites;
 import me.upp.daligz.service.database.tables.TablePosts;
 import me.upp.daligz.service.database.tables.TableUsers;
@@ -12,6 +13,7 @@ import java.sql.ResultSet;
 
 public class Connector {
 
+    @Getter
     private final MySQL mySQL = new MySQL();
 
     public Connector() {

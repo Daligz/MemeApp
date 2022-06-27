@@ -1,11 +1,25 @@
 package me.upp.daligz.service.database.methods;
 
-import me.upp.daligz.service.database.commons.DataContainer;
+import lombok.AllArgsConstructor;
+import me.upp.daligz.service.utils.JsonUtils;
+import net.royalmind.minecraft.plugin.minigamecluster.mysqlapi.MySQL;
+import net.royalmind.minecraft.plugin.minigamecluster.mysqlapi.queries.Query;
+import net.royalmind.minecraft.plugin.minigamecluster.mysqlapi.queries.SelectQuery;
+import org.json.JSONArray;
 
-public class Get implements DataMethod<DataContainer> {
+import java.sql.ResultSet;
+
+@AllArgsConstructor
+public class Get implements DataMethod<JSONArray> {
+
+    private SelectQuery selectQuery;
+
+    private MySQL mySQL;
 
     @Override
-    public DataContainer execute() {
-        return null;
+    public JSONArray execute() throws Exception {
+        final ResultSet resultSet = new Query(this.mySQL, this.selectQuery.build()).executeQuery();
+        if (resultSet == null) return null;
+        return JsonUtils.toJSON(resultSet);
     }
 }
