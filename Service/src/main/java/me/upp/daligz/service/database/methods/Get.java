@@ -22,9 +22,13 @@ public class Get implements DataMethod<JSONArray> {
     }
 
     @Override
-    public JSONArray execute() throws Exception {
+    public JSONArray execute() {
         final ResultSet resultSet = new Query(this.mySQL, this.selectQuery.build()).executeQuery();
         if (resultSet == null) return null;
-        return JsonUtils.toJSON(resultSet, this.limit);
+        try {
+            return JsonUtils.toJSON(resultSet, this.limit);
+        } catch (final Exception exception) {
+            return null;
+        }
     }
 }
