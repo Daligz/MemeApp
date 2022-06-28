@@ -5,7 +5,6 @@ import me.upp.daligz.service.database.methods.Get;
 import me.upp.daligz.service.database.tables.TablePosts;
 import net.royalmind.minecraft.plugin.minigamecluster.mysqlapi.MySQL;
 import net.royalmind.minecraft.plugin.minigamecluster.mysqlapi.queries.SelectQuery;
-import org.json.JSONArray;
 
 @AllArgsConstructor
 public class Posts {
