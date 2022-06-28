@@ -22,8 +22,8 @@ public class Service {
         });
 
         // Favorites
-        Spark.get("/fav/insert/:mac", (request, response) -> null);
+        Spark.get("/fav/insert/:mac/:postId", (request, response) -> null);
 
-        Spark.get("/fav/delete/:mac", (request, response) -> null);
+        Spark.get("/fav/delete/:mac/:postId", (request, response) -> null);
     }
 }
