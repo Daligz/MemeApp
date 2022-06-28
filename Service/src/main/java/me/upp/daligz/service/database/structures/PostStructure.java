@@ -7,7 +7,7 @@ import net.royalmind.minecraft.plugin.minigamecluster.mysqlapi.MySQL;
 import net.royalmind.minecraft.plugin.minigamecluster.mysqlapi.queries.SelectQuery;
 
 @AllArgsConstructor
-public class Posts {
+public class PostStructure {
 
     private final MySQL mySQL;
 
