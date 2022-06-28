@@ -20,5 +20,10 @@ public class Service {
             new UserStructure(connector.getMySQL()).insert(request.params(":mac"));
             return "OK!";
         });
+
+        // Favorites
+        Spark.get("/fav/insert/:mac", (request, response) -> null);
+
+        Spark.get("/fav/delete/:mac", (request, response) -> null);
     }
 }
