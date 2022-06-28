@@ -51,8 +51,8 @@ public class Connector {
                 new CreateTableQuery(TableFavorites.TABLE_NAME.getValue())
                         .ifNotExists()
                         .column(TableFavorites.ID.getValue(), "INT AUTO_INCREMENT")
-                        .column(TableFavorites.USER_ID.getValue(), String.format("INT NOT NULL, FOREIGN KEY(%s) REFERENCES %s(%s)", TableFavorites.ID.getValue(), TableUsers.TABLE_NAME.getValue(), TableUsers.ID.getValue()))
-                        .column(TableFavorites.POST_ID.getValue(), String.format("INT NOT NULL, FOREIGN KEY(%s) REFERENCES %s(%s)", TableFavorites.ID.getValue(), TablePosts.TABLE_NAME.getValue(), TablePosts.ID.getValue()))
+                        .column(TableFavorites.USER_ID.getValue(), String.format("INT NOT NULL, FOREIGN KEY(%s) REFERENCES %s(%s)", TableFavorites.USER_ID.getValue(), TableUsers.TABLE_NAME.getValue(), TableUsers.ID.getValue()))
+                        .column(TableFavorites.POST_ID.getValue(), String.format("INT NOT NULL, FOREIGN KEY(%s) REFERENCES %s(%s)", TableFavorites.POST_ID.getValue(), TablePosts.TABLE_NAME.getValue(), TablePosts.ID.getValue()))
                         .primaryKey(TableFavorites.ID.getValue())
                         .build()
         );
