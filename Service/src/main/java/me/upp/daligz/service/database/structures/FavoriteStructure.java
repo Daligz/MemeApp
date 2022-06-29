@@ -30,4 +30,12 @@ public class FavoriteStructure {
                 .and(String.format("%s = '%s'", TableFavorites.POST_ID.getValue(), postId));
         new Delete(deleteQuery, this.mySQL).execute();
     }
+
+    public String get(final String mac, final String postId) {
+        final SelectQuery selectQuery = new SelectQuery(TableFavorites.TABLE_NAME.getValue())
+                .column("*")
+                .where(TableFavorites.USER_ID.getValue() + " = '" + mac + "'")
+                .and(TableFavorites.POST_ID.getValue() + " = '" + postId + "'");
+        return new Get(selectQuery, this.mySQL).execute();
+    }
 }
