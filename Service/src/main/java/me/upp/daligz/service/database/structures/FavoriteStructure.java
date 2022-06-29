@@ -26,8 +26,8 @@ public class FavoriteStructure {
 
     public void delete(final String mac, final String postId) {
         final DeleteQuery deleteQuery = new DeleteQuery(TableFavorites.TABLE_NAME.getValue())
-                .where("'%s' = %s")
-                .and("'%s' = %s");
+                .where(String.format("%s = '%s'", TableFavorites.USER_ID.getValue(), mac))
+                .and(String.format("%s = '%s'", TableFavorites.POST_ID.getValue(), postId));
         new Delete(deleteQuery, this.mySQL).execute();
     }
 }
