@@ -41,5 +41,7 @@ public class Service {
 
         Spark.get("/fav/get/:mac/:postId", (request, response) -> new FavoriteStructure(connector.getMySQL())
                 .get(request.params(":mac"), request.params(":postId")));
+
+        Spark.get("/fav/get/:mac", (request, response) -> new FavoriteStructure(connector.getMySQL()).get(request.params(":mac")));
     }
 }

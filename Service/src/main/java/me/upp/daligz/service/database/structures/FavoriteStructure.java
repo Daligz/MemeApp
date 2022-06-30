@@ -38,4 +38,11 @@ public class FavoriteStructure {
                 .and(TableFavorites.POST_ID.getValue() + " = '" + postId + "'");
         return new Get(selectQuery, this.mySQL).execute();
     }
+
+    public String get(final String mac) {
+        final SelectQuery selectQuery = new SelectQuery(TableFavorites.TABLE_NAME.getValue())
+                .column("*")
+                .where(TableFavorites.USER_ID.getValue() + " = '" + mac + "'");
+        return new Get(selectQuery, this.mySQL).execute();
+    }
 }
