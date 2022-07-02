@@ -1,12 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pruebapp/ventanas/favoritos.dart';
 import 'package:scroll_app_bar/scroll_app_bar.dart';
 
 class Main extends StatelessWidget {
-
   final controller = ScrollController();
-
   @override
   Widget build(BuildContext context){
     return Scaffold(
@@ -29,9 +28,20 @@ class Main extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(100)
                    ),
-              child: Icon(
-                FontAwesomeIcons.heartCircleCheck,
-                color: Colors.black,
+              child: RaisedButton(
+                child:  IconButton(
+                  iconSize: 40.0,
+              icon: Icon(
+                  FontAwesomeIcons.heartCircleCheck,
+                  color: Colors.black,
+                  ),
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=> SegundaPagina()));
+                },
+                  ),
+                onPressed: (){
+
+                },
               ),
               ),
             ],
@@ -42,21 +52,4 @@ class Main extends StatelessWidget {
   }
 }
 
-class Boton extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('P1'),
-      ),
-      body: Center(
-        child: RaisedButton(
-          child: Text('Fav'),
-        onPressed: (){
-            Navigator.push(context, MaterialPageRoute(builder: (context)=> SegundaPagina()));
-        },
-        ),
-      ),
-    );
-  }
-}
+

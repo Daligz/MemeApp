@@ -6,10 +6,7 @@ class SegundaPagina extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text('Favoritos'),),
       body: Center(
-        child: RaisedButton(child: Text('Regresar'),
-          onPressed: (){
-          Navigator.pop(context);
-          },),
+
       ),
     );
   }
