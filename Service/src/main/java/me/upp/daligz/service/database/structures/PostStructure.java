@@ -11,10 +11,17 @@ public class PostStructure {
 
     private final MySQL mySQL;
 
-    public String getPosts(final String category, final int amount) {
+    public String get(final String category, final int amount) {
         final SelectQuery selectQuery = new SelectQuery(TablePosts.TABLE_NAME.getValue())
                 .column("*")
                 .where(TablePosts.CATEGORY.getValue() + " = '" + category + "'");
+        return new Get(selectQuery, amount, this.mySQL).execute();
+    }
+
+    public String get(final int amount) {
+        final SelectQuery selectQuery = new SelectQuery(TablePosts.TABLE_NAME.getValue())
+                .column("*")
+                .limit(amount);
         return new Get(selectQuery, amount, this.mySQL).execute();
     }
 }
