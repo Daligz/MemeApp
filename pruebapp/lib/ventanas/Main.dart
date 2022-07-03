@@ -10,7 +10,7 @@ class Main extends StatelessWidget {
   @override
   Widget build(BuildContext context){
     return DefaultTabController(
-      length: 2,
+      length: 5,
         child: Scaffold(
       appBar: ScrollAppBar(
         controller: controller,
@@ -38,13 +38,31 @@ class Main extends StatelessWidget {
               tabs: [
                 Tab(
                   icon: Icon(
+                    Ionicons.camera,
+                    color: Colors.black,
+                  ),
+                ),
+                Tab(
+                  icon: Icon(
                     Ionicons.american_football,
                     color: Colors.black,
                   ),
                 ),
                 Tab(
                   icon: Icon(
-                    Ionicons.fast_food,
+                    Ionicons.bus,
+                    color: Colors.black,
+                  ),
+                ),
+                Tab(
+                  icon: Icon(
+                    Ionicons.woman,
+                    color: Colors.black,
+                  ),
+                ),
+                Tab(
+                  icon: Icon(
+                    Ionicons.restaurant,
                     color: Colors.black,
                   ),
                 ),
