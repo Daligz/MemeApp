@@ -8,12 +8,12 @@ class SegundaPagina extends StatelessWidget {
     return Scaffold(
       appBar: ScrollAppBar(
         controller: controller,
-        backgroundColor: Color(0XFFA96DBB),
+        backgroundColor: Color(0XFF0B2545),
         elevation: 0,
         title: Text(
           'Favoritos',
           style: TextStyle(
-            color: Color(0XFF000000),
+            color: Color(0XFFEEF4ED),
             fontWeight: FontWeight.bold,
           ),
         ),

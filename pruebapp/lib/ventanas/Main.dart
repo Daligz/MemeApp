@@ -14,12 +14,12 @@ class Main extends StatelessWidget {
         child: Scaffold(
       appBar: ScrollAppBar(
         controller: controller,
-        backgroundColor: Color(0XFFA96DBB),
+        backgroundColor: Color(0XFF134074),
         elevation: 0,
         title: Text(
             'Memes',
             style: TextStyle(
-              color: Color(0XFF000000),
+              color: Color(0XFFEEF4ED),
               fontWeight: FontWeight.bold,
             ),
         ),
@@ -32,6 +32,7 @@ class Main extends StatelessWidget {
         ],
       ),
       body: SingleChildScrollView(
+        controller: controller,
         child:  Column(
           children: [
             TabBar(
@@ -56,7 +57,7 @@ class Main extends StatelessWidget {
                 ),
                 Tab(
                   icon: Icon(
-                    Ionicons.woman,
+                    Ionicons.people,
                     color: Colors.black,
                   ),
                 ),
@@ -67,7 +68,8 @@ class Main extends StatelessWidget {
                   ),
                 ),
               ],
-            )
+            ),
+
           ],
         ),
       ),
@@ -85,7 +87,7 @@ Widget _accionesApp(context){
       child:  IconButton(
         iconSize: 40.0,
         icon: Icon(
-          FontAwesomeIcons.heartCircleCheck,
+          FontAwesomeIcons.heart,
           color: Colors.black,
         ),
         onPressed: () {
