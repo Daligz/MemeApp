@@ -1,7 +1,7 @@
 class Routes {
 
   // Main _url for the connection to the web service
-  static const String _url = "localhost:6969";
+  static const String _url = "http://192.168.6.199:6969";
 
   // Posts routes
   static String routePostGet(final String category, final int amount) => _url + "/posts/get/$amount/$category";

@@ -41,6 +41,8 @@ dependencies:
   sticky_headers: ^0.2.0
   ionicons: ^0.1.2
   http: ^0.13.4
+  #dio: ^4.0.6
+  mac_address: ^1.0.0
 
 
 dev_dependencies:

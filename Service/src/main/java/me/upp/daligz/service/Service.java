@@ -1,5 +1,6 @@
 package me.upp.daligz.service;
 
+import com.google.gson.Gson;
 import me.upp.daligz.service.database.Connector;
 import me.upp.daligz.service.database.structures.FavoriteStructure;
 import me.upp.daligz.service.database.structures.PostStructure;
@@ -9,6 +10,7 @@ import spark.Spark;
 public class Service {
 
     public static void main(final String[] args) {
+        final Gson gson = new Gson();
         final Connector connector = new Connector();
         Spark.port(6969);
 
@@ -21,7 +23,7 @@ public class Service {
         // Users
         Spark.get("/users/insert/:mac", (request, response) -> {
             new UserStructure(connector.getMySQL()).insert(request.params(":mac"));
-            return "OK!";
+            return gson.toJson("OK!");
         });
 
         // Favorites
