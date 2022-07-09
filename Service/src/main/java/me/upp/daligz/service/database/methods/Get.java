@@ -23,7 +23,11 @@ public class Get implements DataMethod<String> {
     @Override
     public String execute() {
         final ResultSet resultSet = new Query(this.mySQL, this.selectQuery.build()).executeQuery();
-        if (resultSet == null) return null;
+        try {
+            if (resultSet == null || !(resultSet.next())) return "";
+        } catch (final Exception exception) {
+            return "";
+        }
         try {
             return JsonUtils.toJSON(resultSet, this.limit).toString();
         } catch (final Exception exception) {

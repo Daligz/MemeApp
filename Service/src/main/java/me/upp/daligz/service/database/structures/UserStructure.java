@@ -1,10 +1,13 @@
 package me.upp.daligz.service.database.structures;
 
 import lombok.AllArgsConstructor;
+import me.upp.daligz.service.database.methods.Get;
 import me.upp.daligz.service.database.methods.Insert;
+import me.upp.daligz.service.database.tables.TableFavorites;
 import me.upp.daligz.service.database.tables.TableUsers;
 import net.royalmind.minecraft.plugin.minigamecluster.mysqlapi.MySQL;
 import net.royalmind.minecraft.plugin.minigamecluster.mysqlapi.queries.InsertQuery;
+import net.royalmind.minecraft.plugin.minigamecluster.mysqlapi.queries.SelectQuery;
 
 @AllArgsConstructor
 public class UserStructure {
@@ -16,5 +19,13 @@ public class UserStructure {
                 .value(TableUsers.ID.getValue(), null)
                 .value(TableUsers.MAC.getValue(), String.format("'%s'", mac));
         new Insert(insertQuery, this.mySQL).execute();
+    }
+
+    public boolean exist(final String mac) {
+        final SelectQuery selectQuery = new SelectQuery(TableUsers.TABLE_NAME.getValue())
+                .column("*")
+                .where(TableUsers.MAC.getValue() + " = '" + mac + "'");
+        final String execute = new Get(selectQuery, this.mySQL).execute();
+        return (execute != null && !(execute.isEmpty()));
     }
 }

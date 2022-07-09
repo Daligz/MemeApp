@@ -26,6 +26,11 @@ public class Service {
             return gson.toJson("OK!");
         });
 
+        Spark.get("/users/exists/:mac", (request, response) -> {
+            final boolean exist = new UserStructure(connector.getMySQL()).exist(request.params(":mac"));
+            return gson.toJson(exist);
+        });
+
         // Favorites
         Spark.get("/fav/insert/:mac/:postId", (request, response) -> {
             new FavoriteStructure(connector.getMySQL()).insert(
