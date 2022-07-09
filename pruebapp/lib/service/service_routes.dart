@@ -9,6 +9,7 @@ class Routes {
 
   // Users routes
   static String routeUserInsert(final String mac) => _url + "/users/insert/$mac";
+  static String routeUserExists(final String mac) => _url + "/users/exists/$mac";
 
   // Favorites routes
   static String routeFavoriteInsert(final String mac, final String postId) => _url + "/fav/insert/$mac/$postId";
