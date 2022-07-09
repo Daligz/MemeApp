@@ -5,8 +5,8 @@ import 'package:pruebapp/ventanas/structureImage.dart';
 void main() {
   runApp(MyApp());
   final Tester tester = Tester();
-  tester.registerDevice();
   tester.getPost();
+  tester.registerDevice();
 }
 
 class MyApp extends StatelessWidget {
@@ -26,13 +26,16 @@ class Tester {
   void registerDevice() {
     print("Registering device...");
     _service.registerDevice().then((value) => {
-      print("DATA GETTED!"),
-      print(value.body)
+      if (value) {
+        print("Dispositivo registrado!")
+      } else {
+        print("Error...")
+      }
     });
   }
 
   void getPost() {
     print("Getting posts...");
-    // _service.getPost().then((value) => print(value)).onError((error, stackTrace) => print("Chale : $error"));
+    _service.getPost().then((value) => print(value)).onError((error, stackTrace) => print("Chale : $error"));
   }
 }

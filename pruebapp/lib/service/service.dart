@@ -1,24 +1,25 @@
-// import 'package:dio/dio.dart';
-import 'package:http/http.dart' as http;
-import 'package:mac_address/mac_address.dart';
+import 'package:http/http.dart';
+import 'package:platform_device_id/platform_device_id.dart';
 import 'package:pruebapp/service/service_routes.dart';
 
 class Service {
 
-  Future<http.Response> registerDevice() async {
-    final String macAddress = "dfgdfgdfg";//await GetMac.macAddress;
+  Future<bool> registerDevice() async {
+    String? macAddress;
+    try {
+      macAddress = await PlatformDeviceId.getDeviceId;
+    } on PlatformDeviceId {
+      macAddress = "";
+    }
+    if (macAddress == null || macAddress.isEmpty) return false;
     print(macAddress);
     print(Routes.routeUserInsert(macAddress));
-    // final http.Response response = await http.get(Uri.parse("https://jsonplaceholder.typicode.com/albums/1"));
-    final http.Response response = await http.get(Uri.parse(Routes.routeUserInsert(macAddress)));
-    return response;
-    // final response = await Dio().get(Routes.routeUserInsert(macAddress));
-    // return (response.statusCode == 200);
+    final Response response = await get(Uri.parse(Routes.routeUserInsert(macAddress)));
+    return (response.statusCode == 200);
   }
 
   Future<String> getPost() async {
-    // final response = await Dio().get(Routes.routePostGet("animals", 1));
-    // return response.data;
-    return "";
+    final Response response = await get(Uri.parse(Routes.routePostGet("animals", 1)));
+    return response.body;
   }
 }
