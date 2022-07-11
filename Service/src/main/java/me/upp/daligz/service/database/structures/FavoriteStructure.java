@@ -38,6 +38,15 @@ public class FavoriteStructure {
         new Delete(deleteQuery, this.mySQL).execute();
     }
 
+    public boolean exists(final String mac, final String postId) {
+        final SelectQuery selectQuery = new SelectQuery(TableFavorites.TABLE_NAME.getValue())
+                .column("*")
+                .where(TableFavorites.USER_ID.getValue() + " = '" + mac + "'")
+                .and(TableFavorites.POST_ID.getValue() + " = '" + postId + "'");
+        final String execute = new Get(selectQuery, this.mySQL).execute();
+        return (execute != null && !(execute.isEmpty()));
+    }
+
     public String get(final String mac, final String postId, final UserStructure userStructure, final PostStructure postStructure) {
         final SelectQuery selectQuery = new SelectQuery(TableFavorites.TABLE_NAME.getValue())
                 .column("*")

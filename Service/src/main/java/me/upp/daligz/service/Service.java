@@ -54,5 +54,7 @@ public class Service {
         Spark.get("/fav/get/:mac/:postId", (request, response) -> favoriteStructure.get(request.params(":mac"), request.params(":postId"), userStructure, postStructure));
 
         Spark.get("/fav/get/:mac", (request, response) -> favoriteStructure.get(request.params(":mac"), userStructure, postStructure));
+
+        Spark.get("/fav/exists/:mac/:postId", (request, response) -> gson.toJson(favoriteStructure.exists(request.params(":mac"), request.params(":postId"))));
     }
 }
