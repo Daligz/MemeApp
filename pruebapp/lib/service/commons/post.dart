@@ -4,4 +4,12 @@ class Post {
   final String image, category;
 
   Post(this.id, this.image, this.category);
+
+  factory Post.fromJson(final Map<String, dynamic> jsonMap) {
+    return Post(
+        jsonMap['postid'],
+        jsonMap['category'],
+        jsonMap['url']
+    );
+  }
 }
