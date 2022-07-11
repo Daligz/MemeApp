@@ -1,5 +1,5 @@
 import 'package:http/http.dart';
-import 'package:pruebapp/service/commons/device.dart';
+import 'package:pruebapp/service/utils/device.dart';
 
 import '../service_routes.dart';
 
