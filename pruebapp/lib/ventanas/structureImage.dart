@@ -29,7 +29,7 @@ class Estructura extends StatelessWidget {
               Row(
                 children: <Widget>[
                   ClipOval(
-                    child: Image.asset('imags/IM1.jpg'),
+                    child: Image.asset('imgs/IM1.jpg', width: 20, height: 20),
                   ),
                   SizedBox(
                     width: 13.0,
@@ -46,9 +46,7 @@ class Estructura extends StatelessWidget {
         ),
 
         //Aqui van dentro las imagenes
-        Image.network(
-          '',
-        ),
+        Image.asset('imgs/IM1.jpg', width: 50, height: 50),
 
         //Parte de favorito
         Padding(

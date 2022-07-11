@@ -1,5 +1,7 @@
 package me.upp.daligz.service.database;
 
+import lombok.Getter;
+import me.upp.daligz.service.database.tables.TableFavorites;
 import me.upp.daligz.service.database.tables.TablePosts;
 import me.upp.daligz.service.database.tables.TableUsers;
 import net.royalmind.minecraft.plugin.minigamecluster.mysqlapi.MySQL;
@@ -11,6 +13,7 @@ import java.sql.ResultSet;
 
 public class Connector {
 
+    @Getter
     private final MySQL mySQL = new MySQL();
 
     public Connector() {
@@ -41,6 +44,16 @@ public class Connector {
                         .column(TableUsers.ID.getValue(), "INT AUTO_INCREMENT")
                         .column(TableUsers.MAC.getValue(), "VARCHAR(20) NOT NULL")
                         .primaryKey(TableUsers.ID.getValue())
+                        .build()
+        );
+
+        this.executeTableQuery(
+                new CreateTableQuery(TableFavorites.TABLE_NAME.getValue())
+                        .ifNotExists()
+                        .column(TableFavorites.ID.getValue(), "INT AUTO_INCREMENT")
+                        .column(TableFavorites.USER_ID.getValue(), String.format("INT NOT NULL, FOREIGN KEY(%s) REFERENCES %s(%s)", TableFavorites.USER_ID.getValue(), TableUsers.TABLE_NAME.getValue(), TableUsers.ID.getValue()))
+                        .column(TableFavorites.POST_ID.getValue(), String.format("INT NOT NULL, FOREIGN KEY(%s) REFERENCES %s(%s)", TableFavorites.POST_ID.getValue(), TablePosts.TABLE_NAME.getValue(), TablePosts.ID.getValue()))
+                        .primaryKey(TableFavorites.ID.getValue())
                         .build()
         );
     }
