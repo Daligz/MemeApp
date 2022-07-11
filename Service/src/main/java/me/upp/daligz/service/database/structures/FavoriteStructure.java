@@ -3,10 +3,14 @@ package me.upp.daligz.service.database.structures;
 import com.google.gson.Gson;
 import lombok.AllArgsConstructor;
 import me.upp.daligz.service.commons.FavoriteData;
+import me.upp.daligz.service.commons.PostData;
+import me.upp.daligz.service.commons.UserData;
 import me.upp.daligz.service.database.methods.Delete;
 import me.upp.daligz.service.database.methods.Get;
 import me.upp.daligz.service.database.methods.Insert;
 import me.upp.daligz.service.database.tables.TableFavorites;
+import me.upp.daligz.service.database.tables.TablePosts;
+import me.upp.daligz.service.database.tables.TableUsers;
 import net.royalmind.minecraft.plugin.minigamecluster.mysqlapi.MySQL;
 import net.royalmind.minecraft.plugin.minigamecluster.mysqlapi.queries.DeleteQuery;
 import net.royalmind.minecraft.plugin.minigamecluster.mysqlapi.queries.InsertQuery;
@@ -20,8 +24,6 @@ public class FavoriteStructure {
 
     private final MySQL mySQL;
     private final Gson gson;
-    private final UserStructure userStructure;
-    private PostStructure postStructure;
 
     public void insert(final String mac, final String postId) {
         final InsertQuery insertQuery = new InsertQuery(TableFavorites.TABLE_NAME.getValue())
@@ -38,18 +40,27 @@ public class FavoriteStructure {
         new Delete(deleteQuery, this.mySQL).execute();
     }
 
-    public String get(final String mac, final String postId) {
+    public String get(final String mac, final String postId, final UserStructure userStructure, final PostStructure postStructure) {
+
         final SelectQuery selectQuery = new SelectQuery(TableFavorites.TABLE_NAME.getValue())
                 .column("*")
                 .where(TableFavorites.USER_ID.getValue() + " = '" + mac + "'")
                 .and(TableFavorites.POST_ID.getValue() + " = '" + postId + "'");
         final String result = new Get(selectQuery, this.mySQL).execute();
-        System.out.println(result);
+
         final List<FavoriteData.ToService> toService = new ArrayList<>();
         for (final FavoriteData.FromDataBase fromDataBase : this.gson.fromJson(result, FavoriteData.FromDataBase[].class)) {
+            final String json = userStructure.get(fromDataBase.getUserid());
+            final String byId = postStructure.getById(fromDataBase.getPostid());
+            final UserData userData = this.gson.fromJson(json, UserData[].class)[0];
+            final PostData postData = this.gson.fromJson(byId, PostData[].class)[0];
             toService.add(
                     new FavoriteData.ToService(
-
+                            userData.getUserid(),
+                            postData.getPostid(),
+                            userData.getMac(),
+                            postData.getUrl(),
+                            postData.getCategory()
                     )
             );
         }

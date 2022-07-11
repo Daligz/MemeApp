@@ -34,7 +34,7 @@ public class Service {
         });
 
         // Favorites
-        final FavoriteStructure favoriteStructure = new FavoriteStructure(connector.getMySQL(), gson, userStructure, postStructure);
+        final FavoriteStructure favoriteStructure = new FavoriteStructure(connector.getMySQL(), gson);
         Spark.get("/fav/insert/:mac/:postId", (request, response) -> {
             favoriteStructure.insert(
                     request.params(":mac"),
@@ -51,7 +51,7 @@ public class Service {
             return "OK!";
         });
 
-        Spark.get("/fav/get/:mac/:postId", (request, response) -> favoriteStructure.get(request.params(":mac"), request.params(":postId")));
+        Spark.get("/fav/get/:mac/:postId", (request, response) -> favoriteStructure.get(request.params(":mac"), request.params(":postId"), userStructure, postStructure));
 
         Spark.get("/fav/get/:mac", (request, response) -> favoriteStructure.get(request.params(":mac")));
     }
