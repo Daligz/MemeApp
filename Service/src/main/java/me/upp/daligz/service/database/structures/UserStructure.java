@@ -28,4 +28,11 @@ public class UserStructure {
         final String execute = new Get(selectQuery, this.mySQL).execute();
         return (execute != null && !(execute.isEmpty()));
     }
+
+    public String get(final String id) {
+        final SelectQuery selectQuery = new SelectQuery(TableUsers.TABLE_NAME.getValue())
+                .column("*")
+                .where(TableUsers.ID.getValue() + " = '" + id + "'");
+        return new Get(selectQuery, this.mySQL).execute();
+    }
 }
