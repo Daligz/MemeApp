@@ -9,8 +9,6 @@ import me.upp.daligz.service.database.methods.Delete;
 import me.upp.daligz.service.database.methods.Get;
 import me.upp.daligz.service.database.methods.Insert;
 import me.upp.daligz.service.database.tables.TableFavorites;
-import me.upp.daligz.service.database.tables.TablePosts;
-import me.upp.daligz.service.database.tables.TableUsers;
 import net.royalmind.minecraft.plugin.minigamecluster.mysqlapi.MySQL;
 import net.royalmind.minecraft.plugin.minigamecluster.mysqlapi.queries.DeleteQuery;
 import net.royalmind.minecraft.plugin.minigamecluster.mysqlapi.queries.InsertQuery;
@@ -41,13 +39,22 @@ public class FavoriteStructure {
     }
 
     public String get(final String mac, final String postId, final UserStructure userStructure, final PostStructure postStructure) {
-
         final SelectQuery selectQuery = new SelectQuery(TableFavorites.TABLE_NAME.getValue())
                 .column("*")
                 .where(TableFavorites.USER_ID.getValue() + " = '" + mac + "'")
                 .and(TableFavorites.POST_ID.getValue() + " = '" + postId + "'");
-        final String result = new Get(selectQuery, this.mySQL).execute();
+        return this.getData(userStructure, postStructure, selectQuery);
+    }
 
+    public String get(final String mac, final UserStructure userStructure, final PostStructure postStructure) {
+        final SelectQuery selectQuery = new SelectQuery(TableFavorites.TABLE_NAME.getValue())
+                .column("*")
+                .where(TableFavorites.USER_ID.getValue() + " = '" + mac + "'");
+        return this.getData(userStructure, postStructure, selectQuery);
+    }
+
+    private String getData(final UserStructure userStructure, final PostStructure postStructure, final SelectQuery selectQuery) {
+        final String result = new Get(selectQuery, this.mySQL).execute();
         final List<FavoriteData.ToService> toService = new ArrayList<>();
         for (final FavoriteData.FromDataBase fromDataBase : this.gson.fromJson(result, FavoriteData.FromDataBase[].class)) {
             final String json = userStructure.get(fromDataBase.getUserid());
@@ -65,12 +72,5 @@ public class FavoriteStructure {
             );
         }
         return this.gson.toJson(toService);
-    }
-
-    public String get(final String mac) {
-        final SelectQuery selectQuery = new SelectQuery(TableFavorites.TABLE_NAME.getValue())
-                .column("*")
-                .where(TableFavorites.USER_ID.getValue() + " = '" + mac + "'");
-        return new Get(selectQuery, this.mySQL).execute();
     }
 }
