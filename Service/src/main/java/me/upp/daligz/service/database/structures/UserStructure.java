@@ -21,7 +21,7 @@ public class UserStructure {
         new Insert(insertQuery, this.mySQL).execute();
     }
 
-    public boolean exist(final String mac) {
+    public boolean exists(final String mac) {
         final SelectQuery selectQuery = new SelectQuery(TableUsers.TABLE_NAME.getValue())
                 .column("*")
                 .where(TableUsers.MAC.getValue() + " = '" + mac + "'");

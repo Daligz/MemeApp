@@ -27,7 +27,7 @@ public class Service {
         });
 
         Spark.get("/users/exists/:mac", (request, response) -> {
-            final boolean exist = new UserStructure(connector.getMySQL()).exist(request.params(":mac"));
+            final boolean exist = new UserStructure(connector.getMySQL()).exists(request.params(":mac"));
             return gson.toJson(exist);
         });
 
