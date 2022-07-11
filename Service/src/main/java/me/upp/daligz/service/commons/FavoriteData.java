@@ -4,5 +4,5 @@ import lombok.Data;
 
 @Data
 public class FavoriteData {
-    private final int favoriteId, postId, userId;
+    private final int favoriteid, postid, userid;
 }

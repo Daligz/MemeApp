@@ -39,6 +39,7 @@ public class FavoriteStructure {
                 .where(TableFavorites.USER_ID.getValue() + " = '" + mac + "'")
                 .and(TableFavorites.POST_ID.getValue() + " = '" + postId + "'");
         final String result = new Get(selectQuery, this.mySQL).execute();
+        System.out.println(result);
         final FavoriteData[] favoriteData = this.gson.fromJson(result, FavoriteData[].class);
         for (final FavoriteData favoriteDatum : favoriteData) {
             System.out.println(favoriteDatum.toString());
