@@ -1,11 +1,12 @@
 package me.upp.daligz.service.database.structures;
 
+import com.google.gson.Gson;
 import lombok.AllArgsConstructor;
+import me.upp.daligz.service.commons.FavoriteData;
 import me.upp.daligz.service.database.methods.Delete;
 import me.upp.daligz.service.database.methods.Get;
 import me.upp.daligz.service.database.methods.Insert;
 import me.upp.daligz.service.database.tables.TableFavorites;
-import me.upp.daligz.service.database.tables.TablePosts;
 import net.royalmind.minecraft.plugin.minigamecluster.mysqlapi.MySQL;
 import net.royalmind.minecraft.plugin.minigamecluster.mysqlapi.queries.DeleteQuery;
 import net.royalmind.minecraft.plugin.minigamecluster.mysqlapi.queries.InsertQuery;
@@ -15,6 +16,7 @@ import net.royalmind.minecraft.plugin.minigamecluster.mysqlapi.queries.SelectQue
 public class FavoriteStructure {
 
     private final MySQL mySQL;
+    private final Gson gson;
 
     public void insert(final String mac, final String postId) {
         final InsertQuery insertQuery = new InsertQuery(TableFavorites.TABLE_NAME.getValue())
@@ -36,7 +38,12 @@ public class FavoriteStructure {
                 .column("*")
                 .where(TableFavorites.USER_ID.getValue() + " = '" + mac + "'")
                 .and(TableFavorites.POST_ID.getValue() + " = '" + postId + "'");
-        return new Get(selectQuery, this.mySQL).execute();
+        final String result = new Get(selectQuery, this.mySQL).execute();
+        final FavoriteData[] favoriteData = this.gson.fromJson(result, FavoriteData[].class);
+        for (final FavoriteData favoriteDatum : favoriteData) {
+            System.out.println(favoriteDatum.toString());
+        }
+        return "xd";
     }
 
     public String get(final String mac) {

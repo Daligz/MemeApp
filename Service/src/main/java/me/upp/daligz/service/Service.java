@@ -33,7 +33,7 @@ public class Service {
 
         // Favorites
         Spark.get("/fav/insert/:mac/:postId", (request, response) -> {
-            new FavoriteStructure(connector.getMySQL()).insert(
+            new FavoriteStructure(connector.getMySQL(), gson).insert(
                     request.params(":mac"),
                     request.params(":postId")
             );
@@ -41,7 +41,7 @@ public class Service {
         });
 
         Spark.get("/fav/delete/:mac/:postId", (request, response) -> {
-            new FavoriteStructure(connector.getMySQL()).delete(
+            new FavoriteStructure(connector.getMySQL(), gson).delete(
                     request.params(":mac"),
                     request.params(":postId")
             );
