@@ -7,9 +7,6 @@ import me.upp.daligz.service.database.tables.TableUsers;
 import net.royalmind.minecraft.plugin.minigamecluster.mysqlapi.MySQL;
 import net.royalmind.minecraft.plugin.minigamecluster.mysqlapi.queries.CreateTableQuery;
 import net.royalmind.minecraft.plugin.minigamecluster.mysqlapi.queries.Query;
-import net.royalmind.minecraft.plugin.minigamecluster.mysqlapi.queries.SelectQuery;
-
-import java.sql.ResultSet;
 
 public class Connector {
 
@@ -60,23 +57,5 @@ public class Connector {
 
     private void executeTableQuery(final String query) {
         new Query(this.mySQL, query).executeUpdateAsync();
-    }
-
-    public ResultSet getPosts(final String category) {
-        final String selectQuery = new SelectQuery(TablePosts.TABLE_NAME.getValue())
-                .column("*")
-                .where(TablePosts.CATEGORY.getValue() + " = '" + category + "'")
-                .build();
-        System.out.println(selectQuery);
-        try {
-            return new Query(this.mySQL, selectQuery).executeQuery();
-        } catch (final Exception exception) {
-            exception.printStackTrace();
-        }
-        return null;
-    }
-
-    public void close() {
-        this.mySQL.disconnect();
     }
 }
