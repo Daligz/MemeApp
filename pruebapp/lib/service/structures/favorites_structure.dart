@@ -9,13 +9,21 @@ class FavoriteStructure {
   Future<bool> insert(final String postId) async {
     final String macAddress = await Device.getMacAddress();
     if (!(await exists(postId))) return false;
-    final http.Response response = await http.get(Uri.parse(Routes.routeFavoriteInsert(macAddress, postId)));
-    return (response.body.toLowerCase() == "true");
+    return commonRequest(Routes.routeFavoriteInsert(macAddress, postId));
   }
 
   Future<bool> exists(final String postId) async {
     final String macAddress = await Device.getMacAddress();
-    final http.Response response = await http.get(Uri.parse(Routes.routeFavoriteExists(macAddress, postId)));
+    return commonRequest(Routes.routeFavoriteExists(macAddress, postId));
+  }
+
+  Future<bool> delete(final String postId) async {
+    final String macAddress = await Device.getMacAddress();
+    return commonRequest(Routes.routeFavoriteDelete(macAddress, postId));
+  }
+
+  Future<bool> commonRequest(final String route) async {
+    final http.Response response = await http.get(Uri.parse(route));
     return (response.body.toLowerCase() == "true");
   }
 }
