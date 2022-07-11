@@ -12,11 +12,16 @@ import net.royalmind.minecraft.plugin.minigamecluster.mysqlapi.queries.DeleteQue
 import net.royalmind.minecraft.plugin.minigamecluster.mysqlapi.queries.InsertQuery;
 import net.royalmind.minecraft.plugin.minigamecluster.mysqlapi.queries.SelectQuery;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @AllArgsConstructor
 public class FavoriteStructure {
 
     private final MySQL mySQL;
     private final Gson gson;
+    private final UserStructure userStructure;
+    private PostStructure postStructure;
 
     public void insert(final String mac, final String postId) {
         final InsertQuery insertQuery = new InsertQuery(TableFavorites.TABLE_NAME.getValue())
@@ -40,11 +45,11 @@ public class FavoriteStructure {
                 .and(TableFavorites.POST_ID.getValue() + " = '" + postId + "'");
         final String result = new Get(selectQuery, this.mySQL).execute();
         System.out.println(result);
-        final FavoriteData[] favoriteData = this.gson.fromJson(result, FavoriteData[].class);
-        for (final FavoriteData favoriteDatum : favoriteData) {
-            System.out.println(favoriteDatum.toString());
+        final List<FavoriteData.ToService> toService = new ArrayList<>();
+        for (final FavoriteData.FromDataBase fromDataBase : this.gson.fromJson(result, FavoriteData.FromDataBase[].class)) {
+            
         }
-        return "xd";
+        return this.gson.toJson(toService);
     }
 
     public String get(final String mac) {
