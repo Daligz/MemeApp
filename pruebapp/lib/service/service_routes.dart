@@ -15,5 +15,6 @@ class Routes {
   static String routeFavoriteInsert(final String mac, final String postId) => _url + "/fav/insert/$mac/$postId";
   static String routeFavoriteDelete(final String mac, final String postId) => _url + "/fav/delete/$mac/$postId";
   static String routeFavoriteGet(final String mac, final String postId) => _url + "/fav/get/$mac/$postId";
+  static String routeFavoriteExists(final String mac, final String postId) => _url + "/fav/exists/$mac/$postId";
   static String routeFavoriteGetAll(final String mac) => _url + "/fav/get/$mac";
 }
