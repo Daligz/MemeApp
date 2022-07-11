@@ -1,6 +1,6 @@
 class Routes {
 
-  // Main _url for the connection to the web service
+  // Main url for the connection to the web service
   static const String _url = "http://192.168.6.199:6969";
 
   // Posts routes
