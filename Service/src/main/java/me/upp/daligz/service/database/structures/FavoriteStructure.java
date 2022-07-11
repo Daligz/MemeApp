@@ -47,7 +47,11 @@ public class FavoriteStructure {
         System.out.println(result);
         final List<FavoriteData.ToService> toService = new ArrayList<>();
         for (final FavoriteData.FromDataBase fromDataBase : this.gson.fromJson(result, FavoriteData.FromDataBase[].class)) {
-            
+            toService.add(
+                    new FavoriteData.ToService(
+
+                    )
+            );
         }
         return this.gson.toJson(toService);
     }

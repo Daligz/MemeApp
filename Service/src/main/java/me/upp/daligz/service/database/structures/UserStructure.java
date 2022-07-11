@@ -29,7 +29,7 @@ public class UserStructure {
         return (execute != null && !(execute.isEmpty()));
     }
 
-    public String get(final String id) {
+    public String get(final int id) {
         final SelectQuery selectQuery = new SelectQuery(TableUsers.TABLE_NAME.getValue())
                 .column("*")
                 .where(TableUsers.ID.getValue() + " = '" + id + "'");
