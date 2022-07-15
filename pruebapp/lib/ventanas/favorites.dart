@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:pruebapp/ventanas/constants/ColorsConst.dart';
 import 'package:scroll_app_bar/scroll_app_bar.dart';
 
-class Favoritos extends StatelessWidget {
+class Favorites extends StatelessWidget {
   final controller = ScrollController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: ScrollAppBar(
         controller: controller,
-        backgroundColor: Color(0XFF0B2545),
+        backgroundColor: ColorsConst.background,
         elevation: 0,
-        title: Text(
+        title: const Text(
           'Favoritos',
           style: TextStyle(
-            color: Color(0XFFEEF4ED),
+            color: ColorsConst.text,
             fontWeight: FontWeight.bold,
           ),
         ),

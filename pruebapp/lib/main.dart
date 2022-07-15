@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:pruebapp/service/service.dart';
-import 'package:pruebapp/ventanas/structureImage.dart';
+import 'package:pruebapp/ventanas/favorites.dart';
 
 void main() {
   runApp(MyApp());
-  final Tester tester = Tester();
-  tester.getPost();
-  tester.registerDevice();
 }
 
 class MyApp extends StatelessWidget {
@@ -14,7 +11,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Images(),
+      home: Favorites(),
     );
   }
 }
