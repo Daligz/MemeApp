@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:scroll_app_bar/scroll_app_bar.dart';
 
-class SegundaPagina extends StatelessWidget {
+class Favoritos extends StatelessWidget {
   final controller = ScrollController();
   @override
   Widget build(BuildContext context) {
