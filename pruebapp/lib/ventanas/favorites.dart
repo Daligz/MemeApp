@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pruebapp/service/commons/favorite.dart';
 import 'package:pruebapp/service/structures/favorites_structure.dart';
+import 'package:pruebapp/service/structures/users_structure.dart';
 import 'package:pruebapp/ventanas/components/ContainerComponent.dart';
 import 'package:pruebapp/ventanas/constants/ColorsConst.dart';
 import 'package:scroll_app_bar/scroll_app_bar.dart';
@@ -22,19 +23,17 @@ class _FavoritesState extends State<Favorites> {
   void initState() {
     super.initState();
     loading = true;
-    empty = false;
+    empty = true;
     getData();
   }
 
   Future getData() async {
+    await UserStructure().insert();
     final List<Favorite> favoritesData = await FavoriteStructure().getAll();
-    print("a");
-    favoritesData.forEach((element) { print(element.image); });
-    print("n");
     setState(() {
       favorites = favoritesData;
       loading = false;
-      empty = favoritesData.isNotEmpty;
+      empty = !(favoritesData.isNotEmpty);
       print(empty);
     });
   }
@@ -56,7 +55,7 @@ class _FavoritesState extends State<Favorites> {
       ),
       body: !loading ? empty ? SingleChildScrollView(
             controller: _controller,
-            child: const Text('¡Primero debes guardar alguna imagen favorita!')
+            child: const Text('¡Primero debes guardar alguna imagen como favorita!')
         ) :  SingleChildScrollView(
         controller: _controller,
         child: ListView.builder(
