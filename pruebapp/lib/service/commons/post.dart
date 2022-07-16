@@ -8,8 +8,8 @@ class Post {
   factory Post.fromJson(final Map<String, dynamic> jsonMap) {
     return Post(
         jsonMap['postid'],
-        jsonMap['category'],
-        jsonMap['url']
+        jsonMap['url'],
+        jsonMap['category']
     );
   }
 }

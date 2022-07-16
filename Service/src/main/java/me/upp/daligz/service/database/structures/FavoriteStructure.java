@@ -48,24 +48,28 @@ public class FavoriteStructure {
     }
 
     public String get(final String mac, final String postId, final UserStructure userStructure, final PostStructure postStructure) {
+        final int id = userStructure.getIdByMac(mac);
         final SelectQuery selectQuery = new SelectQuery(TableFavorites.TABLE_NAME.getValue())
                 .column("*")
-                .where(TableFavorites.USER_ID.getValue() + " = '" + mac + "'")
+                .where(TableFavorites.USER_ID.getValue() + " = '" + id + "'")
                 .and(TableFavorites.POST_ID.getValue() + " = '" + postId + "'");
         return this.getData(userStructure, postStructure, selectQuery);
     }
 
     public String get(final String mac, final UserStructure userStructure, final PostStructure postStructure) {
+        final int id = userStructure.getIdByMac(mac);
         final SelectQuery selectQuery = new SelectQuery(TableFavorites.TABLE_NAME.getValue())
                 .column("*")
-                .where(TableFavorites.USER_ID.getValue() + " = '" + mac + "'");
+                .where(TableFavorites.USER_ID.getValue() + " = '" + id + "'");
         return this.getData(userStructure, postStructure, selectQuery);
     }
 
     private String getData(final UserStructure userStructure, final PostStructure postStructure, final SelectQuery selectQuery) {
         final String result = new Get(selectQuery, this.mySQL).execute();
         final List<FavoriteData.ToService> toService = new ArrayList<>();
-        for (final FavoriteData.FromDataBase fromDataBase : this.gson.fromJson(result, FavoriteData.FromDataBase[].class)) {
+        final FavoriteData.FromDataBase[] fromDataBases = this.gson.fromJson(result, FavoriteData.FromDataBase[].class);
+        if (fromDataBases == null) return "";
+        for (final FavoriteData.FromDataBase fromDataBase : fromDataBases) {
             final String json = userStructure.get(fromDataBase.getUserid());
             final String byId = postStructure.getById(fromDataBase.getPostid());
             final UserData userData = this.gson.fromJson(json, UserData[].class)[0];

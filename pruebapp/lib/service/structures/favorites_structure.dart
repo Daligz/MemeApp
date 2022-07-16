@@ -35,7 +35,11 @@ class FavoriteStructure {
     final String macAddress = await Device.getMacAddress();
     final http.Response response = await http.get(Uri.parse(Routes.routeFavoriteGetAll(macAddress)));
     if (response.statusCode != 200) return List.empty();
-    return (json.decode(response.body) as List).map((e) => Favorite.fromJson(e)).toList();
+    try {
+      return (json.decode(response.body) as List).map((e) => Favorite.fromJson(e)).toList();
+    } catch (ex) {
+      return List.empty();
+    }
   }
 
   Future<bool> commonRequest(final String route) async {
