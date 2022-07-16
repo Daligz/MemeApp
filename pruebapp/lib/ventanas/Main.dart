@@ -91,7 +91,7 @@ Widget _accionesApp(context){
           color: Colors.black,
         ),
         onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context)=> SegundaPagina()));
+          Navigator.push(context, MaterialPageRoute(builder: (context)=> Favorites()));
         },
       ),
       onPressed: (){
