@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pruebapp/ventanas/Main.dart';
+import 'package:pruebapp/ventanas/constants/IconsConst.dart';
 
 class ContainerComponent extends StatelessWidget {
 
@@ -27,7 +28,14 @@ class ContainerComponent extends StatelessWidget {
                         fit: BoxFit.fill
                     )
                 ),
-                const Text('a')
+                Row(
+                  children: const <Widget> [
+                    IconsConst.iconHeart,
+                    SizedBox(width: 10.0),
+                    Text('Animales'),
+                    SizedBox(width: 450.0, height: 50.0)
+                  ],
+                )
               ],
             )
           ],
