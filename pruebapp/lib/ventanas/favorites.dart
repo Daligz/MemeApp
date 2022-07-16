@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pruebapp/service/commons/post.dart';
-import 'package:pruebapp/service/structures/posts_structure.dart';
+import 'package:pruebapp/service/commons/favorite.dart';
+import 'package:pruebapp/service/structures/favorites_structure.dart';
 import 'package:pruebapp/ventanas/components/ContainerComponent.dart';
 import 'package:pruebapp/ventanas/constants/ColorsConst.dart';
 import 'package:scroll_app_bar/scroll_app_bar.dart';
@@ -14,21 +14,28 @@ class Favorites extends StatefulWidget {
 class _FavoritesState extends State<Favorites> {
 
   late bool loading;
-  late List<Post> posts;
+  late bool empty;
+  late List<Favorite> favorites;
   final _controller = ScrollController();
 
   @override
   void initState() {
     super.initState();
     loading = true;
+    empty = false;
     getData();
   }
 
   Future getData() async {
-    final List<Post> postsData = await PostStructure().getRandom(3);
+    final List<Favorite> favoritesData = await FavoriteStructure().getAll();
+    print("a");
+    favoritesData.forEach((element) { print(element.image); });
+    print("n");
     setState(() {
-      posts = postsData;
+      favorites = favoritesData;
       loading = false;
+      empty = favoritesData.isNotEmpty;
+      print(empty);
     });
   }
 
@@ -47,13 +54,16 @@ class _FavoritesState extends State<Favorites> {
           ),
         ),
       ),
-      body: !loading ? SingleChildScrollView(
+      body: !loading ? empty ? SingleChildScrollView(
+            controller: _controller,
+            child: const Text('¡Primero debes guardar alguna imagen favorita!')
+        ) :  SingleChildScrollView(
         controller: _controller,
         child: ListView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          itemCount: posts.length,
-          itemBuilder: (context, index) => ContainerComponent(posts[index])
+          itemCount: favorites.length,
+          itemBuilder: (context, index) => ContainerComponent(favorites[index])
         )
       ) : const LinearProgressIndicator()
     );

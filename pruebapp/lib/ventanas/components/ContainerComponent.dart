@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:pruebapp/service/commons/post.dart';
+import 'package:pruebapp/service/commons/favorite.dart';
 import 'package:pruebapp/ventanas/constants/IconsConst.dart';
 
 class ContainerComponent extends StatelessWidget {
 
-  final Post post;
+  final Favorite favorite;
 
-  const ContainerComponent(this.post);
+  const ContainerComponent(this.favorite);
 
   @override
   Widget build(final BuildContext context) {
@@ -23,13 +23,13 @@ class ContainerComponent extends StatelessWidget {
               children: <Widget> [
                 const SizedBox(height: 5.0),
                 Text(
-                    post.category
+                    favorite.category
                 ),
                 const SizedBox(height: 5.0),
                 ClipRRect(
                     borderRadius: BorderRadius.circular(10.0),
                     child: Image.network(
-                        post.image,
+                        favorite.image,
                         height: 275.0,
                         width: 300.0,
                         fit: BoxFit.fill
