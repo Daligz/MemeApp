@@ -24,11 +24,11 @@ class Favorites extends StatelessWidget {
       body: SingleChildScrollView(
         controller: _controller,
         child: Column(
-          children: <Widget> [
-            const SizedBox(height: 20),
-            const ContainerComponent(),
-            const ContainerComponent(),
-            const ContainerComponent()
+          children: const <Widget> [
+            SizedBox(height: 20),
+            ContainerComponent(),
+            ContainerComponent(),
+            ContainerComponent()
           ],
         ),
       ),
