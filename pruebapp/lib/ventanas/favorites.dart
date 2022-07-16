@@ -25,6 +25,9 @@ class Favorites extends StatelessWidget {
         controller: _controller,
         child: Column(
           children: <Widget> [
+            const SizedBox(height: 20),
+            const ContainerComponent(),
+            const ContainerComponent(),
             const ContainerComponent()
           ],
         ),
