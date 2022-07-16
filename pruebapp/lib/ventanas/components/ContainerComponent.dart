@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:pruebapp/service/commons/post.dart';
 import 'package:pruebapp/ventanas/constants/IconsConst.dart';
 
 class ContainerComponent extends StatelessWidget {
 
-  const ContainerComponent();
+  final Post post;
+
+  const ContainerComponent(this.post);
 
   @override
   Widget build(final BuildContext context) {
@@ -11,7 +14,7 @@ class ContainerComponent extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 5.0),
       child: Container(
         decoration: _cardDecoration(),
-        height: 370.0,
+        height: 400.0,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget> [
@@ -19,24 +22,39 @@ class ContainerComponent extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget> [
                 const SizedBox(height: 5.0),
-                const Text(
-                  'Animales'
+                Text(
+                    post.category
                 ),
                 const SizedBox(height: 5.0),
                 ClipRRect(
                     borderRadius: BorderRadius.circular(10.0),
                     child: Image.network(
-                        'https://static1.patasdacasa.com.br/articles/1/25/41/@/10986-nao-sabe-como-apresentar-gato-filhote-a-opengraph_1200-1.jpg',
+                        post.image,
                         height: 275.0,
-                        width: 250.0,
+                        width: 300.0,
                         fit: BoxFit.fill
                     )
                 ),
                 const SizedBox(height: 10.0),
                 Row(
-                  children: const <Widget> [
-                    SizedBox(width: 200.0),
-                    IconsConst.iconHeartFilled
+                  children: <Widget> [
+                    Row(
+                      children: const <Widget> [
+                        FittedBox(
+                          fit: BoxFit.fill,
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            '2 reactions'
+                          ),
+                        )
+                      ]
+                    ),
+                    const SizedBox(width: 150.0),
+                    Row(
+                      children: const <Widget> [
+                        IconsConst.iconHeartFilled
+                      ]
+                    )
                   ],
                 )
               ],
