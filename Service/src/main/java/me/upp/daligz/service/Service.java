@@ -15,25 +15,28 @@ public class Service {
         Spark.port(6969);
 
         // Posts
-        Spark.get("/posts/get/:amount/:category", (request, response) -> new PostStructure(connector.getMySQL())
+        final PostStructure postStructure = new PostStructure(connector.getMySQL());
+        Spark.get("/posts/get/:amount/:category", (request, response) -> postStructure
                 .get(request.params(":category"), Integer.parseInt(request.params(":amount"))));
 
-        Spark.get("/posts/get/:amount", (request, response) -> new PostStructure(connector.getMySQL()).get(Integer.parseInt(request.params(":amount"))));
+        Spark.get("/posts/get/:amount", (request, response) -> postStructure.get(Integer.parseInt(request.params(":amount"))));
 
         // Users
+        final UserStructure userStructure = new UserStructure(connector.getMySQL());
         Spark.get("/users/insert/:mac", (request, response) -> {
-            new UserStructure(connector.getMySQL()).insert(request.params(":mac"));
+            userStructure.insert(request.params(":mac"));
             return gson.toJson("OK!");
         });
 
         Spark.get("/users/exists/:mac", (request, response) -> {
-            final boolean exist = new UserStructure(connector.getMySQL()).exist(request.params(":mac"));
-            return gson.toJson(exist);
+            final boolean exists = userStructure.exists(request.params(":mac"));
+            return gson.toJson(exists);
         });
 
         // Favorites
+        final FavoriteStructure favoriteStructure = new FavoriteStructure(connector.getMySQL(), gson);
         Spark.get("/fav/insert/:mac/:postId", (request, response) -> {
-            new FavoriteStructure(connector.getMySQL()).insert(
+            favoriteStructure.insert(
                     request.params(":mac"),
                     request.params(":postId")
             );
@@ -41,16 +44,17 @@ public class Service {
         });
 
         Spark.get("/fav/delete/:mac/:postId", (request, response) -> {
-            new FavoriteStructure(connector.getMySQL()).delete(
+            favoriteStructure.delete(
                     request.params(":mac"),
                     request.params(":postId")
             );
             return "OK!";
         });
 
-        Spark.get("/fav/get/:mac/:postId", (request, response) -> new FavoriteStructure(connector.getMySQL())
-                .get(request.params(":mac"), request.params(":postId")));
+        Spark.get("/fav/get/:mac/:postId", (request, response) -> favoriteStructure.get(request.params(":mac"), request.params(":postId"), userStructure, postStructure));
 
-        Spark.get("/fav/get/:mac", (request, response) -> new FavoriteStructure(connector.getMySQL()).get(request.params(":mac")));
+        Spark.get("/fav/get/:mac", (request, response) -> favoriteStructure.get(request.params(":mac"), userStructure, postStructure));
+
+        Spark.get("/fav/exists/:mac/:postId", (request, response) -> gson.toJson(favoriteStructure.exists(request.params(":mac"), request.params(":postId"))));
     }
 }

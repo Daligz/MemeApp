@@ -24,4 +24,11 @@ public class PostStructure {
                 .limit(amount);
         return new Get(selectQuery, amount, this.mySQL).execute();
     }
+
+    public String getById(final int id) {
+        final SelectQuery selectQuery = new SelectQuery(TablePosts.TABLE_NAME.getValue())
+                .column("*")
+                .where(TablePosts.ID.getValue() + " = '" + id + "'");
+        return new Get(selectQuery, this.mySQL).execute();
+    }
 }

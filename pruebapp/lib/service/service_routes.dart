@@ -1,6 +1,6 @@
 class Routes {
 
-  // Main _url for the connection to the web service
+  // Main url for the connection to the web service
   static const String _url = "http://192.168.6.199:6969";
 
   // Posts routes
@@ -15,5 +15,6 @@ class Routes {
   static String routeFavoriteInsert(final String mac, final String postId) => _url + "/fav/insert/$mac/$postId";
   static String routeFavoriteDelete(final String mac, final String postId) => _url + "/fav/delete/$mac/$postId";
   static String routeFavoriteGet(final String mac, final String postId) => _url + "/fav/get/$mac/$postId";
+  static String routeFavoriteExists(final String mac, final String postId) => _url + "/fav/exists/$mac/$postId";
   static String routeFavoriteGetAll(final String mac) => _url + "/fav/get/$mac";
 }
