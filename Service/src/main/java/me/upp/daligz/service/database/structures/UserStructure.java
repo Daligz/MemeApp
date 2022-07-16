@@ -7,7 +7,10 @@ import me.upp.daligz.service.database.tables.TableFavorites;
 import me.upp.daligz.service.database.tables.TableUsers;
 import net.royalmind.minecraft.plugin.minigamecluster.mysqlapi.MySQL;
 import net.royalmind.minecraft.plugin.minigamecluster.mysqlapi.queries.InsertQuery;
+import net.royalmind.minecraft.plugin.minigamecluster.mysqlapi.queries.Query;
 import net.royalmind.minecraft.plugin.minigamecluster.mysqlapi.queries.SelectQuery;
+
+import java.sql.ResultSet;
 
 @AllArgsConstructor
 public class UserStructure {
@@ -34,5 +37,16 @@ public class UserStructure {
                 .column("*")
                 .where(TableUsers.ID.getValue() + " = '" + id + "'");
         return new Get(selectQuery, this.mySQL).execute();
+    }
+
+    public int getIdByMac(final String mac) {
+        final SelectQuery selectQuery = new SelectQuery(TableUsers.TABLE_NAME.getValue())
+                .column("*")
+                .where(TableUsers.MAC.getValue() + " = '" + mac + "'");
+        final ResultSet resultSet = new Query(this.mySQL, selectQuery.build()).executeQuery();
+        try {
+            if (resultSet.next()) return resultSet.getInt(TableUsers.ID.getValue());
+        } catch (final Exception ignored) { }
+        return 0;
     }
 }

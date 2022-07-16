@@ -48,17 +48,19 @@ public class FavoriteStructure {
     }
 
     public String get(final String mac, final String postId, final UserStructure userStructure, final PostStructure postStructure) {
+        final int id = userStructure.getIdByMac(mac);
         final SelectQuery selectQuery = new SelectQuery(TableFavorites.TABLE_NAME.getValue())
                 .column("*")
-                .where(TableFavorites.USER_ID.getValue() + " = '" + mac + "'")
+                .where(TableFavorites.USER_ID.getValue() + " = '" + id + "'")
                 .and(TableFavorites.POST_ID.getValue() + " = '" + postId + "'");
         return this.getData(userStructure, postStructure, selectQuery);
     }
 
     public String get(final String mac, final UserStructure userStructure, final PostStructure postStructure) {
+        final int id = userStructure.getIdByMac(mac);
         final SelectQuery selectQuery = new SelectQuery(TableFavorites.TABLE_NAME.getValue())
                 .column("*")
-                .where(TableFavorites.USER_ID.getValue() + " = '" + mac + "'");
+                .where(TableFavorites.USER_ID.getValue() + " = '" + id + "'");
         return this.getData(userStructure, postStructure, selectQuery);
     }
 
