@@ -29,12 +29,10 @@ class _FavoritesState extends State<Favorites> {
 
   Future getData() async {
     final List<Favorite> favoritesData = await FavoriteStructure().getAll();
-    favoritesData.forEach((element) { print(element.postId); });
     setState(() {
       favorites = favoritesData;
       loading = false;
       empty = !(favoritesData.isNotEmpty);
-      print(empty);
     });
   }
 
