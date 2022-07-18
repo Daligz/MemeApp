@@ -31,17 +31,17 @@ public class FavoriteStructure {
         new Insert(insertQuery, this.mySQL).execute();
     }
 
-    public void delete(final String mac, final String postId) {
+    public void delete(final String mac, final String postId, final UserStructure userStructure) {
         final DeleteQuery deleteQuery = new DeleteQuery(TableFavorites.TABLE_NAME.getValue())
-                .where(String.format("%s = '%s'", TableFavorites.USER_ID.getValue(), mac))
+                .where(String.format("%s = '%s'", TableFavorites.USER_ID.getValue(), userStructure.getIdByMac(mac)))
                 .and(String.format("%s = '%s'", TableFavorites.POST_ID.getValue(), postId));
         new Delete(deleteQuery, this.mySQL).execute();
     }
 
-    public boolean exists(final String mac, final String postId) {
+    public boolean exists(final String mac, final String postId, final UserStructure userStructure) {
         final SelectQuery selectQuery = new SelectQuery(TableFavorites.TABLE_NAME.getValue())
                 .column("*")
-                .where(TableFavorites.USER_ID.getValue() + " = '" + mac + "'")
+                .where(TableFavorites.USER_ID.getValue() + " = '" + userStructure.getIdByMac(mac) + "'")
                 .and(TableFavorites.POST_ID.getValue() + " = '" + postId + "'");
         final String execute = new Get(selectQuery, this.mySQL).execute();
         return (execute != null && !(execute.isEmpty()));

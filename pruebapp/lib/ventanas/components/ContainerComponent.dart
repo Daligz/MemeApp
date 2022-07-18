@@ -3,6 +3,7 @@ import 'package:pruebapp/service/commons/favorite.dart';
 import 'package:pruebapp/ventanas/constants/IconsConst.dart';
 
 import '../../sensor/authentication.dart';
+import '../../service/structures/favorites_structure.dart';
 
 class ContainerComponent extends StatefulWidget {
 
@@ -93,21 +94,20 @@ class _ContainerComponentState extends State<ContainerComponent> {
   }
 
   void check() async {
-    try {
-      final bool isAuthenticated = await Authentication().hasPermission("Seguro que deseas eliminar el favorito?");
-      setState(() {
-        if (isAuthenticated) {
-          isFavorite = !(isFavorite);
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Row(
-              children: const <Widget>[
-                IconsConst.iconHeartFilled,
-                SizedBox(width: 15.0),
-                Text('Favorito eliminado')
-              ]
-          ),));
-        }
-      });
-    } on Exception { }
+    final bool isAuthenticated = await Authentication().hasPermission("Seguro que deseas eliminar el favorito?");
+    setState(() {
+      if (isAuthenticated) {
+        isFavorite = !(isFavorite);
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Row(
+            children: const <Widget>[
+              IconsConst.iconHeartFilled,
+              SizedBox(width: 15.0),
+              Text('Favorito eliminado')
+            ]
+        ),));
+        FavoriteStructure().delete(favorite.postId.toString());
+      }
+    });
   }
 
   BoxDecoration _cardDecoration() {
