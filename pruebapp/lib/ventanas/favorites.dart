@@ -53,7 +53,7 @@ class _FavoritesState extends State<Favorites> {
           ),
         ),
       ),
-      body: !loading ? empty ? FavoritesEmptyComponent() :  SingleChildScrollView(
+      body: !loading ? empty ? const FavoritesEmptyComponent() :  SingleChildScrollView(
         controller: _controller,
         child: ListView.builder(
           shrinkWrap: true,
