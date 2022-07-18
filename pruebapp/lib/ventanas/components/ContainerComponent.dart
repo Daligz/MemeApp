@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pruebapp/service/commons/favorite.dart';
+import 'package:pruebapp/service/structures/posts_structure.dart';
 import 'package:pruebapp/ventanas/constants/IconsConst.dart';
 
 import '../../sensor/authentication.dart';
@@ -19,8 +20,21 @@ class _ContainerComponentState extends State<ContainerComponent> {
 
   final Favorite favorite;
   bool isFavorite = true;
+  String reactions = "-";
 
   _ContainerComponentState(this.favorite);
+
+
+  @override
+  void initState() {
+    super.initState();
+    loadReactions();
+  }
+
+  Future loadReactions() async {
+    String reactionValue = await PostStructure().getReactions(favorite.postId);
+    setState(() => reactions = reactionValue);
+  }
 
   @override
   Widget build(final BuildContext context) {
@@ -53,12 +67,12 @@ class _ContainerComponentState extends State<ContainerComponent> {
                 Row(
                   children: <Widget> [
                     Row(
-                      children: const <Widget> [
+                      children: <Widget> [
                         FittedBox(
                           fit: BoxFit.fill,
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            '2 reactions'
+                            '$reactions reactions'
                           ),
                         )
                       ]

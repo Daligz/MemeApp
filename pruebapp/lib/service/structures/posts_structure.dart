@@ -7,6 +7,12 @@ import '../service_routes.dart';
 
 class PostStructure {
 
+  Future<String> getReactions(final int postId) async {
+    final http.Response response = await http.get(Uri.parse(Routes.routePostGetReactions(postId)));
+    if (response.statusCode != 200) return "0";
+    return response.body;
+  }
+
   Future<List<Post>> get(final String category, final int amount) async {
     final http.Response response = await http.get(Uri.parse(Routes.routePostGet(category, amount)));
     if (response.statusCode != 200) return List.empty();
