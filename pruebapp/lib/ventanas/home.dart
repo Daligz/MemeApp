@@ -5,7 +5,7 @@ import 'package:ionicons/ionicons.dart';
 import 'package:pruebapp/ventanas/favorites.dart';
 import 'package:scroll_app_bar/scroll_app_bar.dart';
 
-class Main extends StatelessWidget {
+class Home extends StatelessWidget {
   final controller = ScrollController();
   @override
   Widget build(BuildContext context){
