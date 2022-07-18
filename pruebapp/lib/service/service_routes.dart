@@ -6,6 +6,7 @@ class Routes {
   // Posts routes
   static String routePostGet(final String category, final int amount) => _url + "/posts/get/$amount/$category";
   static String routePostGetAll(final int amount) => _url + "/posts/get/$amount";
+  static String routePostGetReactions(final int postId) => _url + "posts/reactions/$postId";
 
   // Users routes
   static String routeUserInsert(final String mac) => _url + "/users/insert/$mac";
