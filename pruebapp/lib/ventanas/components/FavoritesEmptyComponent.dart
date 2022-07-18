@@ -20,7 +20,7 @@ class FavoritesEmptyComponent extends StatelessWidget {
         ClipRRect(
             borderRadius: BorderRadius.circular(10.0),
             child: Image.network(
-                'https://i.pinimg.com/originals/b3/ca/bc/b3cabcbb2b95dbfe42bd62699e12a3b7.gif',
+                'https://www.barakaldotiendaveterinaria.es/blog/wp-content/uploads/2017/02/gato-con-ordenador.jpg',
                 height: 275.0,
                 width: 300.0,
                 fit: BoxFit.fill
