@@ -1,7 +1,9 @@
 package me.upp.daligz.service.database.structures;
 
+import com.google.gson.Gson;
 import lombok.AllArgsConstructor;
 import me.upp.daligz.service.database.methods.Get;
+import me.upp.daligz.service.database.tables.TableFavorites;
 import me.upp.daligz.service.database.tables.TablePosts;
 import net.royalmind.minecraft.plugin.minigamecluster.mysqlapi.MySQL;
 import net.royalmind.minecraft.plugin.minigamecluster.mysqlapi.queries.SelectQuery;
@@ -23,6 +25,15 @@ public class PostStructure {
                 .column("*")
                 .limit(amount);
         return new Get(selectQuery, amount, this.mySQL).execute();
+    }
+
+    public String getPostReactions(final String postId) {
+        final SelectQuery selectQuery = new SelectQuery(TableFavorites.TABLE_NAME.getValue())
+                .column("COUNT(*)")
+                .where(TableFavorites.POST_ID.getValue() + " = " + postId);
+        return new Get(selectQuery, this.mySQL).execute()
+                .replace("[{\"count(*)\":", "")
+                .replace("}]", "");
     }
 
     public String getById(final int id) {

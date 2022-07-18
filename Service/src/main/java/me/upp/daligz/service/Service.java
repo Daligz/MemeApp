@@ -24,6 +24,8 @@ public class Service {
 
         Spark.get("/posts/get/:amount", (request, response) -> postStructure.get(Integer.parseInt(request.params(":amount"))));
 
+        Spark.get("/posts/reactions/:postId", (request, response) -> postStructure.getPostReactions(request.params(":postId")));
+
         // Users
         final UserStructure userStructure = new UserStructure(connector.getMySQL());
         Spark.get("/users/insert/:mac", (request, response) -> {
