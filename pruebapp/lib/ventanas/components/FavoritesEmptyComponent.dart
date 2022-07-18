@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 class FavoritesEmptyComponent extends StatelessWidget {
 
+  const FavoritesEmptyComponent({Key? key}) : super(key: key);
+
   @override
   Widget build(final BuildContext context) {
     return Column(

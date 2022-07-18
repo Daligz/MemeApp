@@ -8,6 +8,8 @@ import 'package:scroll_app_bar/scroll_app_bar.dart';
 
 class Favorites extends StatefulWidget {
 
+  const Favorites({Key? key}) : super(key: key);
+
   @override
   _FavoritesState createState() => _FavoritesState();
 }
