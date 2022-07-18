@@ -2,11 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:pruebapp/service/commons/favorite.dart';
 import 'package:pruebapp/ventanas/constants/IconsConst.dart';
 
-class ContainerComponent extends StatelessWidget {
+import '../../sensor/authentication.dart';
+
+class ContainerComponent extends StatefulWidget {
 
   final Favorite favorite;
 
   const ContainerComponent(this.favorite);
+
+  @override
+  _ContainerComponentState createState() => _ContainerComponentState(favorite);
+}
+
+class _ContainerComponentState extends State<ContainerComponent> {
+
+  final Favorite favorite;
+  bool isFavorite = true;
+
+  _ContainerComponentState(this.favorite);
 
   @override
   Widget build(final BuildContext context) {
@@ -51,8 +64,8 @@ class ContainerComponent extends StatelessWidget {
                     ),
                     const SizedBox(width: 150.0),
                     Row(
-                      children: const <Widget> [
-                        IconsConst.iconHeartFilled
+                      children: <Widget> [
+                        _favIcon()
                       ]
                     )
                   ],
@@ -63,6 +76,38 @@ class ContainerComponent extends StatelessWidget {
         ),
       )
     );
+  }
+
+  Widget _favIcon() {
+    return GestureDetector(
+      child: AnimatedCrossFade(
+        duration: const Duration(milliseconds: 150),
+        firstChild: IconsConst.iconHeartFilled,
+        secondChild: IconsConst.iconHeart,
+        crossFadeState: isFavorite ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+      ),
+      onTap: () {
+        check();
+      },
+    );
+  }
+
+  void check() async {
+    try {
+      final bool isAuthenticated = await Authentication().hasPermission("Seguro que deseas eliminar el favorito?");
+      setState(() {
+        if (isAuthenticated) {
+          isFavorite = !(isFavorite);
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Row(
+              children: const <Widget>[
+                IconsConst.iconHeartFilled,
+                SizedBox(width: 15.0),
+                Text('Favorito eliminado')
+              ]
+          ),));
+        }
+      });
+    } on Exception { }
   }
 
   BoxDecoration _cardDecoration() {
