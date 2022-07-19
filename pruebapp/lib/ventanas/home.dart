@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:pruebapp/service/structures/posts_structure.dart';
+import 'package:pruebapp/ventanas/components/FavoritesEmptyComponent.dart';
 import 'package:pruebapp/ventanas/favorites.dart';
 import 'package:pruebapp/ventanas/posts.dart';
 import 'package:scroll_app_bar/scroll_app_bar.dart';
@@ -10,26 +11,33 @@ import 'components/ContainerPostComponent.dart';
 
 class Home extends StatefulWidget {
 
-  final controller = ScrollController();
-
   @override
-  _homeState createState() => _homeState(controller);
+  _homeState createState() => _homeState();
 }
 
-class _homeState extends State<Home> {
+class _homeState extends State<Home> with SingleTickerProviderStateMixin {
 
-  final controller;
+  final controller = ScrollController();
+  late TabController _tabController;
+  int _selectedIndex = 0;
   final posts = <String, List<Post>>{};
 
   final String categoryTypeRandom = "Random", categoryTypeSports = "Deportes", categoryTypeTransport = "Transporte",
       categoryTypePeople = "Personas", categoryTypeFood = "Comida";
 
-  _homeState(this.controller);
+  PostsView postsView = PostsView(List.empty());
 
   @override
   void initState() {
     super.initState();
     loadPosts();
+    _tabController = TabController(length: 5, vsync: this);
+    _tabController.addListener(() {
+      setState(() {
+        _selectedIndex = _tabController.index;
+      });
+      print("Selected Index: " + _tabController.index.toString());
+    });
   }
 
   void loadPosts() async {
@@ -45,24 +53,23 @@ class _homeState extends State<Home> {
       posts.putIfAbsent("Transporte", () => categoryTransport),
       posts.putIfAbsent("Personas", () => categoryPeople),
       posts.putIfAbsent("Comida", () => categoryFood),
+      postsView = PostsView(categoryRandom)
     });
   }
 
   @override
   Widget build(BuildContext context){
-    return DefaultTabController(
-      length: 5,
-      child: Scaffold(
+    return Scaffold(
       appBar: ScrollAppBar(
         controller: controller,
         backgroundColor: const Color(0XFF134074),
         elevation: 0,
         title: const Text(
-            'Memes',
-            style: TextStyle(
-              color: Color(0XFFEEF4ED),
-              fontWeight: FontWeight.bold,
-            ),
+          'Memes',
+          style: TextStyle(
+            color: Color(0XFFEEF4ED),
+            fontWeight: FontWeight.bold,
+          ),
         ),
         actions: [
           Row(
@@ -72,64 +79,55 @@ class _homeState extends State<Home> {
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        controller: controller,
-        child: Column(
-          children: [
-            TabBar(
-              tabs: [
-                Tab(
-                  icon: IconButton(
-                    icon: const Icon(
+      body: TabBarView(
+        controller: _tabController,
+        children: <Widget> [
+          Column(
+            children: <Widget> [
+              TabBar(
+                controller: _tabController,
+                onTap: (index) {
+                  // Should not used it as it only called when tab options are clicked,
+                  // not when user swapped
+                },
+                tabs: const <Widget> [
+                  Tab(
+                    icon: Icon(
                       Ionicons.camera,
                       color: Colors.black
-                    ),
-                    onPressed: () => {},
-                  )
-                ),
-                Tab(
-                  icon: IconButton(
-                    icon: const Icon(
+                    )
+                  ),
+                  Tab(
+                    icon: Icon(
                       Ionicons.american_football,
                       color: Colors.black
-                    ),
-                    onPressed: () => {},
-                  )
-                ),
-                Tab(
-                  icon: IconButton(
-                    icon: const Icon(
+                    )
+                  ),
+                  Tab(
+                    icon: Icon(
                       Ionicons.bus,
                       color: Colors.black
-                    ),
-                    onPressed: () => {},
-                  )
-                ),
-                Tab(
-                  icon: IconButton(
-                    icon: const Icon(
+                    )
+                  ),
+                  Tab(
+                    icon: Icon(
                       Ionicons.people,
                       color: Colors.black
-                    ),
-                    onPressed: () => {},
-                  )
-                ),
-                Tab(
-                  icon: IconButton(
-                    icon: const Icon(
+                    )
+                  ),
+                  Tab(
+                    icon: Icon(
                       Ionicons.restaurant,
                       color: Colors.black
-                    ),
-                    onPressed: () => {},
-                  )
-                ),
-              ],
-            ),
-
-          ],
-        ),
+                    )
+                  ),
+                ],
+              ),
+              postsView
+            ],
+          ),
+        ]
       ),
-        ),
     );
   }
 }

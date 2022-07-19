@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pruebapp/service/commons/post.dart';
-import 'package:scroll_app_bar/scroll_app_bar.dart';
 
 import 'components/ContainerPostComponent.dart';
 import 'components/FavoritesEmptyComponent.dart';
-import 'constants/ColorsConst.dart';
 
 class PostsView extends StatefulWidget {
 
@@ -42,7 +40,7 @@ class _PostsViewState extends State<PostsView> {
 
   @override
   Widget build(BuildContext context) {
-    return !loading ? empty ? const FavoritesEmptyComponent() :  SingleChildScrollView(
+    return !loading ? empty ? const LinearProgressIndicator() :  SingleChildScrollView(
       controller: _controller,
       child: ListView.builder(
         shrinkWrap: true,
