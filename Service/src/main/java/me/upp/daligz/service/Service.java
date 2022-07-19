@@ -43,7 +43,8 @@ public class Service {
         Spark.get("/fav/insert/:mac/:postId", (request, response) -> {
             favoriteStructure.insert(
                     request.params(":mac"),
-                    request.params(":postId")
+                    request.params(":postId"),
+                    userStructure
             );
             return "OK!";
         });

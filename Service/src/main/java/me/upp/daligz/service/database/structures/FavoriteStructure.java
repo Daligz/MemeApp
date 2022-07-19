@@ -23,10 +23,10 @@ public class FavoriteStructure {
     private final MySQL mySQL;
     private final Gson gson;
 
-    public void insert(final String mac, final String postId) {
+    public void insert(final String mac, final String postId, final UserStructure userStructure) {
         final InsertQuery insertQuery = new InsertQuery(TableFavorites.TABLE_NAME.getValue())
                 .value(TableFavorites.ID.getValue(), null)
-                .value(TableFavorites.USER_ID.getValue(), String.format("'%s'", mac))
+                .value(TableFavorites.USER_ID.getValue(), String.format("'%s'", userStructure.getIdByMac(mac)))
                 .value(TableFavorites.POST_ID.getValue(), String.format("'%s'", postId));
         new Insert(insertQuery, this.mySQL).execute();
     }

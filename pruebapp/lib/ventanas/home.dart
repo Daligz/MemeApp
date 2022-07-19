@@ -1,22 +1,63 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:pruebapp/service/structures/posts_structure.dart';
 import 'package:pruebapp/ventanas/favorites.dart';
+import 'package:pruebapp/ventanas/posts.dart';
 import 'package:scroll_app_bar/scroll_app_bar.dart';
 
-class Home extends StatelessWidget {
+import '../service/commons/post.dart';
+import 'components/ContainerPostComponent.dart';
+
+class Home extends StatefulWidget {
+
   final controller = ScrollController();
+
+  @override
+  _homeState createState() => _homeState(controller);
+}
+
+class _homeState extends State<Home> {
+
+  final controller;
+  final posts = <String, List<Post>>{};
+
+  final String categoryTypeRandom = "Random", categoryTypeSports = "Deportes", categoryTypeTransport = "Transporte",
+      categoryTypePeople = "Personas", categoryTypeFood = "Comida";
+
+  _homeState(this.controller);
+
+  @override
+  void initState() {
+    super.initState();
+    loadPosts();
+  }
+
+  void loadPosts() async {
+    final structure = PostStructure();
+    final categoryRandom = await structure.getRandom(20);
+    final categorySports = await structure.get(categoryTypeSports, 20);
+    final categoryTransport = await structure.get(categoryTypeTransport, 20);
+    final categoryPeople = await structure.get(categoryTypePeople, 20);
+    final categoryFood = await structure.get(categoryTypeFood, 20);
+    setState(() => {
+      posts.putIfAbsent("Random", () => categoryRandom),
+      posts.putIfAbsent("Deportes", () => categorySports),
+      posts.putIfAbsent("Transporte", () => categoryTransport),
+      posts.putIfAbsent("Personas", () => categoryPeople),
+      posts.putIfAbsent("Comida", () => categoryFood),
+    });
+  }
+
   @override
   Widget build(BuildContext context){
     return DefaultTabController(
       length: 5,
-        child: Scaffold(
+      child: Scaffold(
       appBar: ScrollAppBar(
         controller: controller,
-        backgroundColor: Color(0XFF134074),
+        backgroundColor: const Color(0XFF134074),
         elevation: 0,
-        title: Text(
+        title: const Text(
             'Memes',
             style: TextStyle(
               color: Color(0XFFEEF4ED),
@@ -33,39 +74,54 @@ class Home extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         controller: controller,
-        child:  Column(
+        child: Column(
           children: [
             TabBar(
               tabs: [
                 Tab(
-                  icon: Icon(
+                  icon: const Icon(
                     Ionicons.camera,
                     color: Colors.black,
                   ),
+                  child: GestureDetector(
+                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context)=> PostsView(posts[categoryTypeRandom]!))),
+                  )
                 ),
                 Tab(
-                  icon: Icon(
+                  icon: const Icon(
                     Ionicons.american_football,
                     color: Colors.black,
                   ),
+                  child: GestureDetector(
+                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context)=> PostsView(posts[categoryTypeSports]!))),
+                  )
                 ),
                 Tab(
-                  icon: Icon(
+                  icon: const Icon(
                     Ionicons.bus,
                     color: Colors.black,
                   ),
+                  child: GestureDetector(
+                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context)=> PostsView(posts[categoryTypeTransport]!))),
+                  )
                 ),
                 Tab(
-                  icon: Icon(
+                  icon: const Icon(
                     Ionicons.people,
                     color: Colors.black,
                   ),
+                  child: GestureDetector(
+                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context)=> PostsView(posts[categoryTypePeople]!))),
+                  )
                 ),
                 Tab(
-                  icon: Icon(
+                  icon: const Icon(
                     Ionicons.restaurant,
                     color: Colors.black,
                   ),
+                  child: GestureDetector(
+                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context)=> PostsView(posts[categoryTypeFood]!))),
+                  )
                 ),
               ],
             ),
@@ -84,11 +140,12 @@ Widget _accionesApp(context){
         borderRadius: BorderRadius.circular(100)
     ),
     child: RaisedButton(
+      color: const Color(0xFF134074),
       child:  IconButton(
-        iconSize: 40.0,
-        icon: Icon(
-          FontAwesomeIcons.heart,
-          color: Colors.black,
+        iconSize: 35.0,
+        icon: const Icon(
+          Icons.favorite,
+          color: Colors.white,
         ),
         onPressed: () {
           Navigator.push(context, MaterialPageRoute(builder: (context)=> Favorites()));

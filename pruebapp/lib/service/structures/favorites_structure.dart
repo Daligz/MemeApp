@@ -11,7 +11,7 @@ class FavoriteStructure {
 
   Future<bool> insert(final String postId) async {
     final String macAddress = await Device.getMacAddress();
-    if (!(await exists(postId))) return false;
+    if (await exists(postId)) return false;
     return commonRequest(Routes.routeFavoriteInsert(macAddress, postId));
   }
 
