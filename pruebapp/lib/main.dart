@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
 
     // checkAuth();
 
-    // Main screen
+    // Home screen
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Home()

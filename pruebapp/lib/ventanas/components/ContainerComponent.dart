@@ -24,7 +24,6 @@ class _ContainerComponentState extends State<ContainerComponent> {
 
   _ContainerComponentState(this.favorite);
 
-
   @override
   void initState() {
     super.initState();
