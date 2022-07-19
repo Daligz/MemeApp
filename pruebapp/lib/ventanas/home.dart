@@ -79,48 +79,48 @@ class _homeState extends State<Home> {
             TabBar(
               tabs: [
                 Tab(
-                  icon: const Icon(
-                    Ionicons.camera,
-                    color: Colors.black,
-                  ),
-                  child: GestureDetector(
-                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context)=> PostsView(posts[categoryTypeRandom]!))),
+                  icon: IconButton(
+                    icon: const Icon(
+                      Ionicons.camera,
+                      color: Colors.black
+                    ),
+                    onPressed: () => {},
                   )
                 ),
                 Tab(
-                  icon: const Icon(
-                    Ionicons.american_football,
-                    color: Colors.black,
-                  ),
-                  child: GestureDetector(
-                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context)=> PostsView(posts[categoryTypeSports]!))),
+                  icon: IconButton(
+                    icon: const Icon(
+                      Ionicons.american_football,
+                      color: Colors.black
+                    ),
+                    onPressed: () => {},
                   )
                 ),
                 Tab(
-                  icon: const Icon(
-                    Ionicons.bus,
-                    color: Colors.black,
-                  ),
-                  child: GestureDetector(
-                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context)=> PostsView(posts[categoryTypeTransport]!))),
+                  icon: IconButton(
+                    icon: const Icon(
+                      Ionicons.bus,
+                      color: Colors.black
+                    ),
+                    onPressed: () => {},
                   )
                 ),
                 Tab(
-                  icon: const Icon(
-                    Ionicons.people,
-                    color: Colors.black,
-                  ),
-                  child: GestureDetector(
-                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context)=> PostsView(posts[categoryTypePeople]!))),
+                  icon: IconButton(
+                    icon: const Icon(
+                      Ionicons.people,
+                      color: Colors.black
+                    ),
+                    onPressed: () => {},
                   )
                 ),
                 Tab(
-                  icon: const Icon(
-                    Ionicons.restaurant,
-                    color: Colors.black,
-                  ),
-                  child: GestureDetector(
-                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context)=> PostsView(posts[categoryTypeFood]!))),
+                  icon: IconButton(
+                    icon: const Icon(
+                      Ionicons.restaurant,
+                      color: Colors.black
+                    ),
+                    onPressed: () => {},
                   )
                 ),
               ],
@@ -137,7 +137,7 @@ class _homeState extends State<Home> {
 Widget _accionesApp(context){
   return Container(
     decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(100)
+      borderRadius: BorderRadius.circular(100)
     ),
     child: RaisedButton(
       color: const Color(0xFF134074),

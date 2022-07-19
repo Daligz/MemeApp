@@ -42,28 +42,14 @@ class _PostsViewState extends State<PostsView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: ScrollAppBar(
-          controller: _controller,
-          backgroundColor: ColorsConst.background,
-          elevation: 0,
-          title: Text(
-            posts[0].category,
-            style: const TextStyle(
-              color: ColorsConst.text,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
-        body: !loading ? empty ? const FavoritesEmptyComponent() :  SingleChildScrollView(
-            controller: _controller,
-            child: ListView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: posts.length,
-                itemBuilder: (context, index) => ContainerPostComponent(posts[index])
-            )
-        ) : const LinearProgressIndicator()
-    );
+    return !loading ? empty ? const FavoritesEmptyComponent() :  SingleChildScrollView(
+      controller: _controller,
+      child: ListView.builder(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        itemCount: posts.length,
+        itemBuilder: (context, index) => ContainerPostComponent(posts[index])
+      )
+    ) : const LinearProgressIndicator();
   }
 }
