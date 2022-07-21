@@ -27,6 +27,29 @@ class _homeState extends State<Home> with SingleTickerProviderStateMixin {
 
   PostsView postsView = PostsView(List.empty());
 
+  List<Widget> list = [
+    const Tab(icon: Icon(
+        Ionicons.camera,
+        color: Colors.black
+    )),
+    const Tab(icon: Icon(
+        Ionicons.american_football,
+        color: Colors.black
+    )),
+    const Tab(icon: Icon(
+        Ionicons.bus,
+        color: Colors.black
+    )),
+    const Tab(icon: Icon(
+        Ionicons.people,
+        color: Colors.black
+    )),
+    const Tab(icon: Icon(
+        Ionicons.restaurant,
+        color: Colors.black
+    ))
+  ];
+
   @override
   void initState() {
     super.initState();
@@ -78,56 +101,7 @@ class _homeState extends State<Home> with SingleTickerProviderStateMixin {
             ],
           ),
         ],
-      ),
-      body: TabBarView(
-        controller: _tabController,
-        children: <Widget> [
-          Column(
-            children: <Widget> [
-              TabBar(
-                controller: _tabController,
-                onTap: (index) {
-                  // Should not used it as it only called when tab options are clicked,
-                  // not when user swapped
-                },
-                tabs: const <Widget> [
-                  Tab(
-                    icon: Icon(
-                      Ionicons.camera,
-                      color: Colors.black
-                    )
-                  ),
-                  Tab(
-                    icon: Icon(
-                      Ionicons.american_football,
-                      color: Colors.black
-                    )
-                  ),
-                  Tab(
-                    icon: Icon(
-                      Ionicons.bus,
-                      color: Colors.black
-                    )
-                  ),
-                  Tab(
-                    icon: Icon(
-                      Ionicons.people,
-                      color: Colors.black
-                    )
-                  ),
-                  Tab(
-                    icon: Icon(
-                      Ionicons.restaurant,
-                      color: Colors.black
-                    )
-                  ),
-                ],
-              ),
-              postsView
-            ],
-          ),
-        ]
-      ),
+      )
     );
   }
 }
