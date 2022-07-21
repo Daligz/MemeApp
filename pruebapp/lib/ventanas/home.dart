@@ -27,7 +27,7 @@ class _homeState extends State<Home> with SingleTickerProviderStateMixin {
 
   PostsView postsView = PostsView(List.empty());
 
-  List<Widget> list = [
+  List<Widget> tabList = [
     const Tab(icon: Icon(
         Ionicons.camera,
         color: Colors.black
@@ -54,7 +54,7 @@ class _homeState extends State<Home> with SingleTickerProviderStateMixin {
   void initState() {
     super.initState();
     loadPosts();
-    _tabController = TabController(length: 5, vsync: this);
+    _tabController = TabController(length: list.length, vsync: this);
     _tabController.addListener(() {
       setState(() {
         _selectedIndex = _tabController.index;
@@ -101,6 +101,11 @@ class _homeState extends State<Home> with SingleTickerProviderStateMixin {
             ],
           ),
         ],
+        bottom: TabBar(
+          onTap: (index) { },
+          controller: _tabController,
+          tabs: tabList,
+        ),
       )
     );
   }
