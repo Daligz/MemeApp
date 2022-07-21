@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:pruebapp/service/structures/posts_structure.dart';
-import 'package:pruebapp/ventanas/components/FavoritesEmptyComponent.dart';
+import 'package:pruebapp/ventanas/constants/ColorsConst.dart';
+import 'package:pruebapp/ventanas/constants/IconsConst.dart';
 import 'package:pruebapp/ventanas/favorites.dart';
 import 'package:pruebapp/ventanas/posts.dart';
 import 'package:scroll_app_bar/scroll_app_bar.dart';
-
-import '../service/commons/post.dart';
-import 'components/ContainerPostComponent.dart';
 
 class Home extends StatefulWidget {
 
@@ -19,34 +17,37 @@ class _homeState extends State<Home> with SingleTickerProviderStateMixin {
 
   final controller = ScrollController();
   late TabController _tabController;
-  int _selectedIndex = 0;
-  final posts = <String, List<Post>>{};
+  bool loaded = false;
 
   final String categoryTypeRandom = "Random", categoryTypeSports = "Deportes", categoryTypeTransport = "Transporte",
       categoryTypePeople = "Personas", categoryTypeFood = "Comida";
 
-  PostsView postsView = PostsView(List.empty());
+  late PostsView categoryRandom;
+  late PostsView categorySports;
+  late PostsView categoryTransport;
+  late PostsView categoryPeople;
+  late PostsView categoryFood;
 
   List<Widget> tabList = [
     const Tab(icon: Icon(
         Ionicons.camera,
-        color: Colors.black
+        color: Colors.white
     )),
     const Tab(icon: Icon(
         Ionicons.american_football,
-        color: Colors.black
+        color: Colors.white
     )),
     const Tab(icon: Icon(
         Ionicons.bus,
-        color: Colors.black
+        color: Colors.white
     )),
     const Tab(icon: Icon(
         Ionicons.people,
-        color: Colors.black
+        color: Colors.white
     )),
     const Tab(icon: Icon(
         Ionicons.restaurant,
-        color: Colors.black
+        color: Colors.white
     ))
   ];
 
@@ -54,29 +55,23 @@ class _homeState extends State<Home> with SingleTickerProviderStateMixin {
   void initState() {
     super.initState();
     loadPosts();
-    _tabController = TabController(length: list.length, vsync: this);
-    _tabController.addListener(() {
-      setState(() {
-        _selectedIndex = _tabController.index;
-      });
-      print("Selected Index: " + _tabController.index.toString());
-    });
+    _tabController = TabController(length: tabList.length, vsync: this);
   }
 
   void loadPosts() async {
     final structure = PostStructure();
-    final categoryRandom = await structure.getRandom(20);
-    final categorySports = await structure.get(categoryTypeSports, 20);
-    final categoryTransport = await structure.get(categoryTypeTransport, 20);
-    final categoryPeople = await structure.get(categoryTypePeople, 20);
-    final categoryFood = await structure.get(categoryTypeFood, 20);
+    final _categoryRandom = await structure.getRandom(20);
+    final _categorySports = await structure.get(categoryTypeSports, 20);
+    final _categoryTransport = await structure.get(categoryTypeTransport, 20);
+    final _categoryPeople = await structure.get(categoryTypePeople, 20);
+    final _categoryFood = await structure.get(categoryTypeFood, 20);
     setState(() => {
-      posts.putIfAbsent("Random", () => categoryRandom),
-      posts.putIfAbsent("Deportes", () => categorySports),
-      posts.putIfAbsent("Transporte", () => categoryTransport),
-      posts.putIfAbsent("Personas", () => categoryPeople),
-      posts.putIfAbsent("Comida", () => categoryFood),
-      postsView = PostsView(categoryRandom)
+      categoryRandom = PostsView(_categoryRandom),
+      categorySports = PostsView(_categorySports),
+      categoryTransport = PostsView(_categoryTransport),
+      categoryPeople = PostsView(_categoryPeople),
+      categoryFood = PostsView(_categoryFood),
+      loaded = true
     });
   }
 
@@ -85,12 +80,12 @@ class _homeState extends State<Home> with SingleTickerProviderStateMixin {
     return Scaffold(
       appBar: ScrollAppBar(
         controller: controller,
-        backgroundColor: const Color(0XFF134074),
+        backgroundColor: ColorsConst.tabBlue,
         elevation: 0,
         title: const Text(
           'Memes',
           style: TextStyle(
-            color: Color(0XFFEEF4ED),
+            color: ColorsConst.text,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -105,8 +100,19 @@ class _homeState extends State<Home> with SingleTickerProviderStateMixin {
           onTap: (index) { },
           controller: _tabController,
           tabs: tabList,
-        ),
-      )
+          indicatorColor: Colors.white,
+        )
+      ),
+      body: TabBarView(
+        controller: _tabController,
+        children: <Widget> [
+          (!loaded) ? const LinearProgressIndicator() : categoryRandom,
+          (!loaded) ? const LinearProgressIndicator() : categorySports,
+          (!loaded) ? const LinearProgressIndicator() : categoryTransport,
+          (!loaded) ? const LinearProgressIndicator() : categoryPeople,
+          (!loaded) ? const LinearProgressIndicator() : categoryFood
+        ],
+      ),
     );
   }
 }
@@ -116,21 +122,21 @@ Widget _favoriteView(context){
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(100)
     ),
-    child: RaisedButton(
-      color: const Color(0xFF134074),
-      child:  IconButton(
-        iconSize: 35.0,
-        icon: const Icon(
-          Icons.favorite,
-          color: Colors.white,
+    child: Row(
+      children: <Widget> [
+        IconButton(
+          iconSize: 35.0,
+          icon: const Icon(
+            Icons.favorite,
+            color: Colors.redAccent,
+          ),
+          onPressed: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context)=> const Favorites()));
+          },
         ),
-        onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context)=> const Favorites()));
-        },
-      ),
-      onPressed: (){
-      },
-    ),
+        const SizedBox(width: 15.0)
+      ],
+    )
   );
 }
 
