@@ -97,7 +97,7 @@ class _homeState extends State<Home> with SingleTickerProviderStateMixin {
         actions: [
           Row(
             children: [
-              _accionesApp(context),
+              _favoriteView(context),
             ],
           ),
         ],
@@ -106,7 +106,7 @@ class _homeState extends State<Home> with SingleTickerProviderStateMixin {
   }
 }
 
-Widget _accionesApp(context){
+Widget _favoriteView(context){
   return Container(
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(100)
@@ -120,7 +120,7 @@ Widget _accionesApp(context){
           color: Colors.white,
         ),
         onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context)=> Favorites()));
+          Navigator.push(context, MaterialPageRoute(builder: (context)=> const Favorites()));
         },
       ),
       onPressed: (){
