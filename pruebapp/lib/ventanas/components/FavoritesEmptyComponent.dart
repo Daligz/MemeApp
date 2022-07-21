@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pruebapp/ventanas/constants/ColorsConst.dart';
 
 class FavoritesEmptyComponent extends StatelessWidget {
 
@@ -8,18 +9,18 @@ class FavoritesEmptyComponent extends StatelessWidget {
   Widget build(final BuildContext context) {
     return Scaffold(
       body: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget> [
-          const SizedBox(height: 25.0),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: const <Widget> [
               Text(
-                '¡Primero debes guardar alguna imagen como favorita!',
+                '¡No tienes favoritos!',
                 style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 15.0,
-                    fontStyle: FontStyle.italic
+                  color: ColorsConst.tabBlue,
+                  fontSize: 25.0,
+                  fontStyle: FontStyle.italic,
+                  fontWeight: FontWeight.bold
                 ),
               )
             ],
@@ -29,16 +30,31 @@ class FavoritesEmptyComponent extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget> [
               ClipRRect(
-                  borderRadius: BorderRadius.circular(10.0),
-                  child: Image.network(
-                      'https://www.barakaldotiendaveterinaria.es/blog/wp-content/uploads/2017/02/gato-con-ordenador.jpg',
-                      height: 275.0,
-                      width: 300.0,
-                      fit: BoxFit.fill
-                  )
+                borderRadius: BorderRadius.circular(10.0),
+                child: Image.network(
+                  'https://c.tenor.com/HKUc3og5OxAAAAAM/gato-cat.gif',
+                  height: 300.0,
+                  width: 300.0,
+                  fit: BoxFit.fill
+                )
               )
             ],
-          )
+          ),
+          const SizedBox(height: 15.0),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const <Widget> [
+              Text(
+                '¡Intenta ver alguna categoria de interes!',
+                style: TextStyle(
+                    color: ColorsConst.tabBlue,
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold
+                ),
+              )
+            ],
+          ),
+          const SizedBox(height: 100.0)
         ],
       )
     );
