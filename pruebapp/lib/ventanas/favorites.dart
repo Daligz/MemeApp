@@ -43,7 +43,7 @@ class _FavoritesState extends State<Favorites> {
     return Scaffold(
       appBar: ScrollAppBar(
         controller: _controller,
-        backgroundColor: ColorsConst.background,
+        backgroundColor: ColorsConst.tabBlue,
         elevation: 0,
         title: const Text(
           'Favoritos',

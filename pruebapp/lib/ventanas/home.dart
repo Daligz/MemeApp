@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:pruebapp/service/structures/posts_structure.dart';
 import 'package:pruebapp/ventanas/constants/ColorsConst.dart';
-import 'package:pruebapp/ventanas/constants/IconsConst.dart';
 import 'package:pruebapp/ventanas/favorites.dart';
 import 'package:pruebapp/ventanas/posts.dart';
 import 'package:scroll_app_bar/scroll_app_bar.dart';
