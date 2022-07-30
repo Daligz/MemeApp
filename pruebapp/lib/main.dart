@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:pruebapp/sensor/authentication.dart';
 import 'package:pruebapp/service/structures/users_structure.dart';
-import 'package:pruebapp/ventanas/favorites.dart';
+import 'package:pruebapp/ventanas/home.dart';
 
 void main() {
   runApp(MyApp());
@@ -14,10 +16,16 @@ class MyApp extends StatelessWidget {
     // Register device id
     UserStructure().insert();
 
-    // Main screen
+    // checkAuth();
+
+    // Home screen
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Favorites()
+      home: Home()
     );
+  }
+
+  void checkAuth() async {
+    if (!(await Authentication().hasPermission("Inicia sesion de forma segura"))) SystemNavigator.pop();
   }
 }

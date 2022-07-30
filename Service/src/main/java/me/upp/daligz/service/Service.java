@@ -1,6 +1,7 @@
 package me.upp.daligz.service;
 
 import com.google.gson.Gson;
+import me.upp.daligz.service.configuration.ServiceConfiguration;
 import me.upp.daligz.service.database.Connector;
 import me.upp.daligz.service.database.structures.FavoriteStructure;
 import me.upp.daligz.service.database.structures.PostStructure;
@@ -12,14 +13,18 @@ public class Service {
     public static void main(final String[] args) {
         final Gson gson = new Gson();
         final Connector connector = new Connector();
+
         Spark.port(6969);
+
+        new ServiceConfiguration().apply();
 
         // Posts
         final PostStructure postStructure = new PostStructure(connector.getMySQL());
-        Spark.get("/posts/get/:amount/:category", (request, response) -> postStructure
-                .get(request.params(":category"), Integer.parseInt(request.params(":amount"))));
+        Spark.get("/posts/get/:amount/:category", (request, response) -> postStructure.get(request.params(":category"), Integer.parseInt(request.params(":amount"))));
 
         Spark.get("/posts/get/:amount", (request, response) -> postStructure.get(Integer.parseInt(request.params(":amount"))));
+
+        Spark.get("/posts/reactions/:postId", (request, response) -> postStructure.getPostReactions(request.params(":postId")));
 
         // Users
         final UserStructure userStructure = new UserStructure(connector.getMySQL());
@@ -38,7 +43,8 @@ public class Service {
         Spark.get("/fav/insert/:mac/:postId", (request, response) -> {
             favoriteStructure.insert(
                     request.params(":mac"),
-                    request.params(":postId")
+                    request.params(":postId"),
+                    userStructure
             );
             return "OK!";
         });
@@ -46,7 +52,8 @@ public class Service {
         Spark.get("/fav/delete/:mac/:postId", (request, response) -> {
             favoriteStructure.delete(
                     request.params(":mac"),
-                    request.params(":postId")
+                    request.params(":postId"),
+                    userStructure
             );
             return "OK!";
         });
@@ -55,6 +62,6 @@ public class Service {
 
         Spark.get("/fav/get/:mac", (request, response) -> favoriteStructure.get(request.params(":mac"), userStructure, postStructure));
 
-        Spark.get("/fav/exists/:mac/:postId", (request, response) -> gson.toJson(favoriteStructure.exists(request.params(":mac"), request.params(":postId"))));
+        Spark.get("/fav/exists/:mac/:postId", (request, response) -> gson.toJson(favoriteStructure.exists(request.params(":mac"), request.params(":postId"), userStructure)));
     }
 }

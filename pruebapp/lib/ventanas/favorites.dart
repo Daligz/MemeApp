@@ -8,6 +8,8 @@ import 'package:scroll_app_bar/scroll_app_bar.dart';
 
 class Favorites extends StatefulWidget {
 
+  const Favorites({Key? key}) : super(key: key);
+
   @override
   _FavoritesState createState() => _FavoritesState();
 }
@@ -39,9 +41,10 @@ class _FavoritesState extends State<Favorites> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ColorsConst.pageBackground,
       appBar: ScrollAppBar(
         controller: _controller,
-        backgroundColor: ColorsConst.background,
+        backgroundColor: ColorsConst.tabBlue,
         elevation: 0,
         title: const Text(
           'Favoritos',
@@ -51,7 +54,7 @@ class _FavoritesState extends State<Favorites> {
           ),
         ),
       ),
-      body: !loading ? empty ? FavoritesEmptyComponent() :  SingleChildScrollView(
+      body: !loading ? empty ? const FavoritesEmptyComponent() :  SingleChildScrollView(
         controller: _controller,
         child: ListView.builder(
           shrinkWrap: true,

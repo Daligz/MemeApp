@@ -10,6 +10,7 @@ class Device {
       return "";
     }
     if (macAddress == null || macAddress.isEmpty) return "";
+    if (macAddress.contains("Windows")) return "debug";
     return macAddress;
   }
 }

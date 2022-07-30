@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pruebapp/service/commons/favorite.dart';
+import 'package:pruebapp/service/commons/post.dart';
 import 'package:pruebapp/service/structures/posts_structure.dart';
 import 'package:pruebapp/ventanas/constants/ColorsConst.dart';
 import 'package:pruebapp/ventanas/constants/IconsConst.dart';
@@ -7,23 +8,23 @@ import 'package:pruebapp/ventanas/constants/IconsConst.dart';
 import '../../sensor/authentication.dart';
 import '../../service/structures/favorites_structure.dart';
 
-class ContainerComponent extends StatefulWidget {
+class ContainerPostComponent extends StatefulWidget {
 
-  final Favorite favorite;
+  final Post post;
 
-  const ContainerComponent(this.favorite);
+  const ContainerPostComponent(this.post);
 
   @override
-  _ContainerComponentState createState() => _ContainerComponentState(favorite);
+  _ContainerPostComponentState createState() => _ContainerPostComponentState(post);
 }
 
-class _ContainerComponentState extends State<ContainerComponent> {
+class _ContainerPostComponentState extends State<ContainerPostComponent> {
 
-  final Favorite favorite;
-  bool isFavorite = true;
+  final Post post;
+  bool isFavorite = false;
   String reactions = "-";
 
-  _ContainerComponentState(this.favorite);
+  _ContainerPostComponentState(this.post);
 
   @override
   void initState() {
@@ -32,8 +33,12 @@ class _ContainerComponentState extends State<ContainerComponent> {
   }
 
   Future loadReactions() async {
-    String reactionValue = await PostStructure().getReactions(favorite.postId);
-    setState(() => reactions = reactionValue);
+    final String reactionValue = await PostStructure().getReactions(post.id);
+    final bool isFavoriteCache = await FavoriteStructure().exists(post.id.toString());
+    setState(() => {
+      reactions = reactionValue,
+      isFavorite = isFavoriteCache
+    });
   }
 
   @override
@@ -51,7 +56,7 @@ class _ContainerComponentState extends State<ContainerComponent> {
               children: <Widget> [
                 const SizedBox(height: 5.0),
                 Text(
-                  favorite.category,
+                  post.category,
                   style: const TextStyle(
                     color: ColorsConst.textContainer,
                     fontSize: 18.0,
@@ -62,7 +67,7 @@ class _ContainerComponentState extends State<ContainerComponent> {
                 ClipRRect(
                     borderRadius: BorderRadius.circular(10.0),
                     child: Image.network(
-                        favorite.image,
+                        post.image,
                         height: 275.0,
                         width: 300.0,
                         fit: BoxFit.fill
@@ -79,8 +84,8 @@ class _ContainerComponentState extends State<ContainerComponent> {
                           child: Text(
                             '$reactions reacciones',
                             style: const TextStyle(
-                                color: ColorsConst.textContainer,
-                                fontSize: 15.0
+                              color: ColorsConst.textContainer,
+                              fontSize: 15.0
                             ),
                           ),
                         )
@@ -116,21 +121,19 @@ class _ContainerComponentState extends State<ContainerComponent> {
     );
   }
 
-  void check() async {
-    final bool isAuthenticated = await Authentication().hasPermission("Seguro que deseas eliminar el favorito?");
+  void check() {
+    final structure = FavoriteStructure();
+    final postId = post.id.toString();
     setState(() {
-      if (isAuthenticated) {
-        isFavorite = !(isFavorite);
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Row(
-            children: const <Widget>[
-              IconsConst.iconHeartFilled,
-              SizedBox(width: 15.0),
-              Text('Favorito eliminado')
-            ]
-        ),));
-        FavoriteStructure().delete(favorite.postId.toString());
-      }
+      (isFavorite) ? structure.delete(postId) : structure.insert(postId);
+      reactions = (isFavorite) ? (int.parse(reactions)-1).toString() : (int.parse(reactions)+1).toString();
+      isFavorite = !(isFavorite);
     });
+  }
+
+  void updateReactions() async {
+    final String reactionValue = await PostStructure().getReactions(post.id);
+    setState(() => reactions = reactionValue);
   }
 
   BoxDecoration _cardDecoration() {

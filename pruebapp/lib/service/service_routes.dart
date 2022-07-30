@@ -1,11 +1,12 @@
 class Routes {
 
   // Main url for the connection to the web service
-  static const String _url = "http://192.168.6.199:6969";
+  static const String _url = "http://192.168.51.21:6969";
 
   // Posts routes
   static String routePostGet(final String category, final int amount) => _url + "/posts/get/$amount/$category";
   static String routePostGetAll(final int amount) => _url + "/posts/get/$amount";
+  static String routePostGetReactions(final int postId) => _url + "/posts/reactions/$postId";
 
   // Users routes
   static String routeUserInsert(final String mac) => _url + "/users/insert/$mac";
