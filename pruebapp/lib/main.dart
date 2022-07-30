@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
     // Register device id
     UserStructure().insert();
 
-    // checkAuth();
+    checkAuth();
 
     // Home screen
     return MaterialApp(
