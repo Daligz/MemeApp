@@ -51,9 +51,14 @@ class _ContainerComponentState extends State<ContainerComponent> {
               children: <Widget> [
                 const SizedBox(height: 5.0),
                 Text(
-                    favorite.category
+                  favorite.category,
+                  style: const TextStyle(
+                    color: ColorsConst.textContainer,
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-                const SizedBox(height: 5.0),
+                const SizedBox(height: 15.0),
                 ClipRRect(
                     borderRadius: BorderRadius.circular(10.0),
                     child: Image.network(
@@ -72,7 +77,11 @@ class _ContainerComponentState extends State<ContainerComponent> {
                           fit: BoxFit.fill,
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            '$reactions reactions'
+                            '$reactions reacciones',
+                            style: const TextStyle(
+                                color: ColorsConst.textContainer,
+                                fontSize: 15.0
+                            ),
                           ),
                         )
                       ]
