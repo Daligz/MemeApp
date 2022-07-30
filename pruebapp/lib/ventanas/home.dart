@@ -77,6 +77,7 @@ class _homeState extends State<Home> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context){
     return Scaffold(
+      backgroundColor: ColorsConst.pageBackground,
       appBar: ScrollAppBar(
         controller: controller,
         backgroundColor: ColorsConst.tabBlue,

@@ -41,6 +41,7 @@ class _FavoritesState extends State<Favorites> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ColorsConst.pageBackground,
       appBar: ScrollAppBar(
         controller: _controller,
         backgroundColor: ColorsConst.tabBlue,

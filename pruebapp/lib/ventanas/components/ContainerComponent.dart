@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pruebapp/service/commons/favorite.dart';
 import 'package:pruebapp/service/structures/posts_structure.dart';
+import 'package:pruebapp/ventanas/constants/ColorsConst.dart';
 import 'package:pruebapp/ventanas/constants/IconsConst.dart';
 
 import '../../sensor/authentication.dart';
@@ -125,7 +126,7 @@ class _ContainerComponentState extends State<ContainerComponent> {
 
   BoxDecoration _cardDecoration() {
     return BoxDecoration(
-        color: Colors.white,
+        color: ColorsConst.containerBackground,
         borderRadius: BorderRadius.circular(10.0),
         boxShadow: const <BoxShadow> [
           BoxShadow(
