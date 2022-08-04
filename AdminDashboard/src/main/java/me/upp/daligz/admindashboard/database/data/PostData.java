@@ -6,6 +6,7 @@ import me.upp.daligz.admindashboard.database.tables.PostTable;
 import net.royalmind.minecraft.plugin.minigamecluster.mysqlapi.queries.DeleteQuery;
 import net.royalmind.minecraft.plugin.minigamecluster.mysqlapi.queries.InsertQuery;
 import net.royalmind.minecraft.plugin.minigamecluster.mysqlapi.queries.Query;
+import net.royalmind.minecraft.plugin.minigamecluster.mysqlapi.queries.UpdateQuery;
 
 @AllArgsConstructor
 public class PostData {
@@ -26,5 +27,14 @@ public class PostData {
                 .where(String.format("'%s' = %s", PostTable.ID.getValue(), id))
                 .build();
         new Query(this.connector.getMySQL(), deleteQuery).executeUpdateAsync();
+    }
+
+    public void update(final int id, final String url, final String category) {
+        final String updateQuery = new UpdateQuery(PostTable.TABLE_NAME.getValue())
+                .set(PostTable.URL.getValue(), url)
+                .set(PostTable.CATEGORY.getValue(), category)
+                .where(String.format("'%s' = %s", PostTable.ID.getValue(), id))
+                .build();
+        new Query(this.connector.getMySQL(), updateQuery).executeUpdateAsync();
     }
 }
