@@ -17,6 +17,7 @@ public class ViewController {
         this.create();
         this.cancel();
         this.update();
+        this.get();
         this.loadCombo();
     }
 
@@ -47,6 +48,18 @@ public class ViewController {
             );
             this.message("Datos actualizados!");
             this.clearFields();
+        });
+    }
+
+    private void get() {
+        this.mainView.getBtnGet().addActionListener(e -> {
+            final Object selectedItem = mainView.getComboId().getSelectedItem();
+            if (selectedItem == null) return;
+            this.postData.get(((Integer) selectedItem)).forEach(postContainer -> {
+                mainView.getTxtUrl().setText(postContainer.getUrl());
+                mainView.getTxtCategory().setText(postContainer.getCategory());
+                this.imageController.updateImage(postContainer.getUrl());
+            });
         });
     }
 
