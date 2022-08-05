@@ -14,7 +14,7 @@ public class AdminDashboard {
         final Connector connector = new Connector();
         final JFrame jFrame = new JFrame("Panel de Administrador");
         final MainView mainView = new MainView();
-        new ViewController(mainView, new PostData(connector), new ImageController(mainView.getImageLabel()));
+        new ViewController(mainView, new PostData(connector), new ImageController(mainView.getImageLabel())).init();
         jFrame.setContentPane(mainView.getRootPanel());
         jFrame.pack();
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

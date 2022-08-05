@@ -18,8 +18,8 @@ public class PostData {
     public void insert(final String url, final String category) {
         final String insertQuery = new InsertQuery(PostTable.TABLE_NAME.getValue())
                 .value(PostTable.ID.getValue(), null)
-                .value(PostTable.URL.getValue(), url)
-                .value(PostTable.CATEGORY.getValue(), category)
+                .value(PostTable.URL.getValue(), String.format("'%s'", url))
+                .value(PostTable.CATEGORY.getValue(), String.format("'%s'", category))
                 .build();
         new Query(this.connector.getMySQL(), insertQuery).executeUpdateAsync();
     }
@@ -33,8 +33,8 @@ public class PostData {
 
     public void update(final int id, final String url, final String category) {
         final String updateQuery = new UpdateQuery(PostTable.TABLE_NAME.getValue())
-                .set(PostTable.URL.getValue(), url)
-                .set(PostTable.CATEGORY.getValue(), category)
+                .set(PostTable.URL.getValue(), String.format("'%s'", url))
+                .set(PostTable.CATEGORY.getValue(), String.format("'%s'", category))
                 .where(String.format("'%s' = %s", PostTable.ID.getValue(), id))
                 .build();
         new Query(this.connector.getMySQL(), updateQuery).executeUpdateAsync();
