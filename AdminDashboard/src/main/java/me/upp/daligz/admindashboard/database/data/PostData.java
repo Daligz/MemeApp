@@ -35,7 +35,7 @@ public class PostData {
         final String updateQuery = new UpdateQuery(PostTable.TABLE_NAME.getValue())
                 .set(PostTable.URL.getValue(), String.format("'%s'", url))
                 .set(PostTable.CATEGORY.getValue(), String.format("'%s'", category))
-                .where(String.format("'%s' = %s", PostTable.ID.getValue(), id))
+                .where(String.format("%s = %s", PostTable.ID.getValue(), id))
                 .build();
         new Query(this.connector.getMySQL(), updateQuery).executeUpdateAsync();
     }
@@ -65,7 +65,7 @@ public class PostData {
     public List<PostContainer> get(final int id) {
         final String selectQuery = new SelectQuery(PostTable.TABLE_NAME.getValue())
                 .column("*")
-                .where(String.format("'%s' = %s", PostTable.ID.getValue(), id))
+                .where(String.format("%s = %s", PostTable.ID.getValue(), id))
                 .build();
         return getPostContainers(selectQuery);
     }

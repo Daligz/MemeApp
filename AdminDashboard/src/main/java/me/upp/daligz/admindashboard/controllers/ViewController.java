@@ -31,8 +31,8 @@ public class ViewController {
                     mainView.getTxtUrl().getText(),
                     mainView.getTxtCategory().getText()
             );
-            this.clearFields();
             this.message("Datos agregados!");
+            this.clearFields();
         });
     }
 
@@ -45,8 +45,8 @@ public class ViewController {
                     mainView.getTxtUrl().getText(),
                     mainView.getTxtCategory().getText()
             );
-            this.clearFields();
             this.message("Datos actualizados!");
+            this.clearFields();
         });
     }
 
