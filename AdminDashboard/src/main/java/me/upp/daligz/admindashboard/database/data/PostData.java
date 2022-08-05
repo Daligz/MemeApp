@@ -26,7 +26,7 @@ public class PostData {
 
     public void delete(final int id) {
         final String deleteQuery = new DeleteQuery(PostTable.TABLE_NAME.getValue())
-                .where(String.format("'%s' = %s", PostTable.ID.getValue(), id))
+                .where(String.format("%s = %s", PostTable.ID.getValue(), id))
                 .build();
         new Query(this.connector.getMySQL(), deleteQuery).executeUpdateAsync();
     }

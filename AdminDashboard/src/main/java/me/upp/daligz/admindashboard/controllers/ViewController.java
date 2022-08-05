@@ -15,9 +15,10 @@ public class ViewController {
 
     public void init() {
         this.create();
-        this.cancel();
-        this.update();
         this.get();
+        this.update();
+        this.delete();
+        this.cancel();
         this.loadCombo();
     }
 
@@ -60,6 +61,16 @@ public class ViewController {
                 mainView.getTxtCategory().setText(postContainer.getCategory());
                 this.imageController.updateImage(postContainer.getUrl());
             });
+        });
+    }
+
+    private void delete() {
+        this.mainView.getBtnDelete().addActionListener(e -> {
+            final Object selectedItem = mainView.getComboId().getSelectedItem();
+            if (selectedItem == null) return;
+            this.postData.delete(((Integer) selectedItem));
+            this.message("Datos eliminados!");
+            this.clearFields();
         });
     }
 
