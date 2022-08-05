@@ -58,6 +58,7 @@ public class ViewController {
         this.mainView.getTxtUrl().setText(null);
         this.mainView.getTxtCategory().setText(null);
         this.mainView.getComboId().setSelectedIndex(0);
+        this.loadCombo();
     }
 
     private void message(final String message) {
