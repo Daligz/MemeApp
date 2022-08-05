@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import me.upp.daligz.admindashboard.database.data.PostData;
 import me.upp.daligz.admindashboard.view.MainView;
 
+import javax.swing.*;
+
 @AllArgsConstructor
 public class ViewController {
 
@@ -13,12 +15,30 @@ public class ViewController {
 
     public void init() {
         this.create();
+        this.cancel();
     }
 
     private void create() {
-        this.mainView.getBtnCreate().addActionListener(e -> this.postData.insert(
-                mainView.getTxtUrl().getText(),
-                mainView.getTxtCategory().getText()
-        ));
+        this.mainView.getBtnCreate().addActionListener(e -> {
+            this.postData.insert(
+                    mainView.getTxtUrl().getText(),
+                    mainView.getTxtCategory().getText()
+            );
+            this.clearFields();
+            this.message("Datos agregados!");
+        });
+    }
+
+    private void cancel() {
+        this.mainView.getBtnCancel().addActionListener(e -> this.clearFields());
+    }
+
+    private void clearFields() {
+        this.mainView.getTxtUrl().setText(null);
+        this.mainView.getTxtCategory().setText(null);
+    }
+
+    private void message(final String message) {
+        JOptionPane.showMessageDialog(null, message);
     }
 }
