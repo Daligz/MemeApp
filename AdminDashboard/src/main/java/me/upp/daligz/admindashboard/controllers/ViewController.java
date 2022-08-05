@@ -57,6 +57,7 @@ public class ViewController {
     private void clearFields() {
         this.mainView.getTxtUrl().setText(null);
         this.mainView.getTxtCategory().setText(null);
+        this.mainView.getComboId().setSelectedIndex(0);
     }
 
     private void message(final String message) {
