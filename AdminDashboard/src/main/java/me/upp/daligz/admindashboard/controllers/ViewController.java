@@ -9,6 +9,7 @@ public class ViewController {
 
     private final MainView mainView;
     private final PostData postData;
+    private final ImageController imageController;
 
     public void init() {
         this.create();
