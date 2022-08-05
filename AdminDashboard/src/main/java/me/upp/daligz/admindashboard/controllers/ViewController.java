@@ -16,6 +16,7 @@ public class ViewController {
     public void init() {
         this.create();
         this.cancel();
+        this.update();
         this.loadCombo();
     }
 
@@ -37,8 +38,10 @@ public class ViewController {
 
     private void update() {
         this.mainView.getBtnUpdate().addActionListener(e -> {
+            final Object selectedItem = mainView.getComboId().getSelectedItem();
+            if (selectedItem == null) return;
             this.postData.update(
-                    1,
+                    ((Integer) selectedItem),
                     mainView.getTxtUrl().getText(),
                     mainView.getTxtCategory().getText()
             );
