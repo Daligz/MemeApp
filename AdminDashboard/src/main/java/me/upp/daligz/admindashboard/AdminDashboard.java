@@ -5,11 +5,12 @@ import me.upp.daligz.admindashboard.view.MainView;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.ImageObserver;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class AdminDashboard {
 
-    public static void main(final String[] args) {
+    public static void main(final String[] args) throws MalformedURLException {
         final Connector connector = new Connector();
         final JFrame jFrame = new JFrame("Panel de Administrador");
         final MainView mainView = new MainView();
@@ -18,7 +19,8 @@ public class AdminDashboard {
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jFrame.setBounds(700, 250, 500, 250);
         jFrame.setVisible(true);
-        final Image image = Toolkit.getDefaultToolkit().createImage("https://i.pinimg.com/originals/42/c2/61/42c261ecd1f3cb4a0b02185acb053095.gif");
-        mainView.getImagenPanel().prepareImage(image, (img, infoflags, x, y, width, height) -> false);
+        mainView.getRootPanel().setBackground(Color.GREEN);
+        final Image image = Toolkit.getDefaultToolkit().createImage(new URL("https://i.pinimg.com/originals/42/c2/61/42c261ecd1f3cb4a0b02185acb053095.gif"));
+        mainView.getRootPanel().prepareImage(image, (img, infoflags, x, y, width, height) -> true);
     }
 }
