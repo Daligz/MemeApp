@@ -72,6 +72,7 @@ public class ViewController {
         this.mainView.getTxtCategory().setText(null);
         this.mainView.getComboId().setSelectedIndex(0);
         this.loadCombo();
+        this.imageController.updateImage("");
     }
 
     private void message(final String message) {
