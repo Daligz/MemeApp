@@ -29,6 +29,18 @@ public class ViewController {
         });
     }
 
+    private void update() {
+        this.mainView.getBtnUpdate().addActionListener(e -> {
+            this.postData.update(
+                    1,
+                    mainView.getTxtUrl().getText(),
+                    mainView.getTxtCategory().getText()
+            );
+            this.clearFields();
+            this.message("Datos actualizados!");
+        });
+    }
+
     private void cancel() {
         this.mainView.getBtnCancel().addActionListener(e -> this.clearFields());
     }
