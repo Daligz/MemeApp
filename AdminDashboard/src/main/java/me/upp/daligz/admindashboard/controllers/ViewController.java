@@ -20,6 +20,7 @@ public class ViewController {
     }
 
     private void loadCombo() {
+        this.mainView.getComboId().removeAllItems();
         this.postData.get().forEach(postContainer -> this.mainView.getComboId().addItem(postContainer.getId()));
     }
 
