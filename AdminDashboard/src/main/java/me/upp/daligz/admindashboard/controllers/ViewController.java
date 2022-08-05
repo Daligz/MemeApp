@@ -1,10 +1,12 @@
 package me.upp.daligz.admindashboard.controllers;
 
 import lombok.AllArgsConstructor;
+import me.upp.daligz.admindashboard.database.commons.PostContainer;
 import me.upp.daligz.admindashboard.database.data.PostData;
 import me.upp.daligz.admindashboard.view.MainView;
 
 import javax.swing.*;
+import java.util.List;
 
 @AllArgsConstructor
 public class ViewController {
@@ -16,6 +18,11 @@ public class ViewController {
     public void init() {
         this.create();
         this.cancel();
+    }
+
+    private void loadCombo() {
+        final List<PostContainer> postContainers = this.postData.get();
+
     }
 
     private void create() {

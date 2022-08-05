@@ -40,11 +40,14 @@ public class PostData {
         new Query(this.connector.getMySQL(), updateQuery).executeUpdateAsync();
     }
 
-    public List<PostContainer> get(final int id) {
+    public List<PostContainer> get() {
         final String selectQuery = new SelectQuery(PostTable.TABLE_NAME.getValue())
                 .column("*")
-                .where(String.format("'%s' = %s", PostTable.ID.getValue(), id))
                 .build();
+        return getPostContainers(selectQuery);
+    }
+
+    private List<PostContainer> getPostContainers(final String selectQuery) {
         final ResultSet resultSet = new Query(this.connector.getMySQL(), selectQuery).executeQuery();
         final ArrayList<PostContainer> postContainers = new ArrayList<>();
         try {
@@ -57,5 +60,13 @@ public class PostData {
             }
         } catch (final Exception ignored) { }
         return postContainers;
+    }
+
+    public List<PostContainer> get(final int id) {
+        final String selectQuery = new SelectQuery(PostTable.TABLE_NAME.getValue())
+                .column("*")
+                .where(String.format("'%s' = %s", PostTable.ID.getValue(), id))
+                .build();
+        return getPostContainers(selectQuery);
     }
 }
