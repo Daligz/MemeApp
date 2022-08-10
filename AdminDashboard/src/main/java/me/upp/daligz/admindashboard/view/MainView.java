@@ -17,4 +17,5 @@ public class MainView {
     private JButton btnCancel;
     private JLabel imageLabel;
     private JComboBox<Integer> comboId;
+    private JButton btnTest;
 }

@@ -1,6 +1,7 @@
 package me.upp.daligz.admindashboard.controllers;
 
 import lombok.AllArgsConstructor;
+import me.upp.daligz.admindashboard.commands.InsertImageCommand;
 import me.upp.daligz.admindashboard.database.data.PostData;
 import me.upp.daligz.admindashboard.view.MainView;
 
@@ -20,6 +21,11 @@ public class ViewController {
         this.delete();
         this.cancel();
         this.loadCombo();
+        this.tests();
+    }
+
+    private void tests() {
+        this.mainView.getBtnTest().addActionListener(e -> new InsertImageCommand(this.postData, this.mainView).work());
     }
 
     private void loadCombo() {
