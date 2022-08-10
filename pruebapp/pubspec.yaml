@@ -43,6 +43,7 @@ dependencies:
   http: ^0.13.4
   platform_device_id: ^1.0.1
   local_auth: ^2.1.0
+  prompt_dialog: ^1.0.9
 
 
 dev_dependencies:
