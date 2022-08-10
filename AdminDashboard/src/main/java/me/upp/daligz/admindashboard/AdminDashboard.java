@@ -1,6 +1,7 @@
 package me.upp.daligz.admindashboard;
 
 import me.upp.daligz.admindashboard.controllers.ImageController;
+import me.upp.daligz.admindashboard.controllers.KeyController;
 import me.upp.daligz.admindashboard.controllers.ViewController;
 import me.upp.daligz.admindashboard.database.Connector;
 import me.upp.daligz.admindashboard.database.data.PostData;
@@ -15,6 +16,7 @@ public class AdminDashboard {
         final JFrame jFrame = new JFrame("Panel de Administrador");
         final MainView mainView = new MainView();
         new ViewController(mainView, new PostData(connector), new ImageController(mainView.getImageLabel())).init();
+        new KeyController(jFrame).init();
         jFrame.setContentPane(mainView.getRootPanel());
         jFrame.pack();
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
