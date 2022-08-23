@@ -1,7 +1,7 @@
 class Routes {
 
   // Main url for the connection to the web service
-  static String url = "http://192.168.1.105:6969";
+  static String url = "http://192.168.50.241:6969";
 
   // Posts routes
   static String routePostGet(final String category, final int amount) => url + "/posts/get/$amount/$category";
